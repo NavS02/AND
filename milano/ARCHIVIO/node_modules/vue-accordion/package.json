@@ -1,0 +1,37 @@
+{
+  "name": "vue-accordion",
+  "version": "1.0.0",
+  "description": "Simple accordion menu component for Vue.js",
+  "main": "dist/vue-accordion.js",
+  "scripts": {
+    "build": "cross-env NODE_ENV=production webpack --progress --hide-modules",
+    "dev": "cross-env NODE_ENV=development webpack --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zeratulmdq/vue-accordion.git"
+  },
+  "keywords": [
+    "vue",
+    "vuejs",
+    "accordion",
+    "component"
+  ],
+  "author": "Martin Benvenuti",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zeratulmdq/vue-accordion/issues"
+  },
+  "homepage": "https://github.com/zeratulmdq/vue-accordion#readme",
+  "devDependencies": {
+    "babel-core": "^6.24.1",
+    "babel-loader": "^7.0.0",
+    "babel-preset-latest": "^6.24.1",
+    "cross-env": "^4.0.0",
+    "css-loader": "^0.28.1",
+    "vue-loader": "^12.0.3",
+    "vue-template-compiler": "^2.3.2",
+    "webpack": "^2.5.1"
+  }
+}
