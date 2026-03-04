@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Risonanze Ieri e Oggi</title>
+    <!--Style-->
+    <link rel="stylesheet" href="https://eurotales.eu/wp-content/themes/emaurri/risonanze/Touch_RisonanzeLinguistiche/style.css">
+
+    <script src="https://eurotales.eu/wp-content/themes/emaurri/risonanze/Touch_RisonanzeLinguistiche/JS/Home/home.js"></script>
+    <script src="https://eurotales.eu/wp-content/themes/emaurri/risonanze/Touch_RisonanzeLinguistiche/JS/RisonanzeOggi/mixColor.js"></script>
+
+</head>
+<body onclick="PreventReset()" class="pagecontent">
+         <!-- <img onclick="GetPopUpCredits()" src="/wp-content/uploads/risonanze/Images/pngs/Btns/CreditiBtn.png" id="BtnCreditiImg">  
+    <div onclick="BackFromCreditsFullScreen()" id="BackBtn_FromCreditsFull" class="hiddenButton"></div> -->
+    
+    <img src="https://eurotales.eu/wp-content/uploads/risonanze/Images/pngs/InfoFullscreen.png" id="PopupInfoFull">
+    <img src="https://eurotales.eu/wp-content/uploads/risonanze/Images/pngs/CreditsFullScreen.png" id="PopupCreditsFull">
+
+    <div onclick="GetInfoFullScreen()" id="GetBtn_FromInfoFull"></div>
+    <div  id="BackBtn_FromInfoFull" class="hiddenButton"></div>
+
+<div class="PopupinfoD" id="PopupinfoD">
+  <h1 class="risoTitle">COME SI NAVIGA <br>FRA 
+    <br>LE RISONANZE?</h1>
+  <h1 class="ieriTitle">IERI</h1>
+  <h1 class="oggiTitle">OGGI</h1>
+
+  <div class="descriptionRisoPop">
+     </div> 
+     <div class="descriptionIeriPop">
+      Le Risonanze Ieri sono visualizzate in due modi:<br><br>
+
+a sinistra una ruota colorata divisa in venti spicchi simboleggia le aree linguistiche, il cui nome appare passandoci sopra con il mouse. Cliccando su ciascuna di esse si aprirà un’altra ruota a colori che contiene le lingue materne di quanti appartengono a quell’area. Cliccando ancora si aprono le schede dei personaggi con il dettaglio delle loro biografie linguistiche.<br><br>
+
+A destra c’è una mappa dell’Europa contemporanea. Cliccando su un paese si possono consultare le biografie linguistiche di tutti i nati in quel paese. 
+
+
+ </div> <div class="descriptionOggiPop">
+    Le RISONANZE OGGI conservano una base dati in costante aggiornamento che organizza informazioni sulle lingue delle nostre comunità e sulle loro funzioni relative, a Roma e in altre città europee, in relazione con l'età degli intervistati, al loro grado di istruzione e alla loro storia familiare.
+
+Contribuite anche voi alla raccolta dei dati completando il nostro questionario!
+  </div>
+  <div class="returnHomeArrow" >
+    <button onclick="BackFromInfoFullScreen()">X</button>
+    <!-- <img src="/wp-content/uploads/risonanze/Images/pngs/returnArrowMobile.png"> -->
+</div>
+
+</div>
+
+
+
+  <div class="pageTitle" id="pageTitle"></div>
+    <img id="LoadingScreen" src="https://eurotales.eu/wp-content/uploads/risonanze/Images/pngs/LoadingScreen.png"/>
+    <iframe class="MyIFrame" id="FrameRisonanzeOggi" src="https://eurotales.eu/wp-content/themes/emaurri/risonanze/Touch_RisonanzeLinguistiche/index_RisonanzeOggi_Home.html" ></iframe>
+    <iframe class="MyIFrame" id="FrameRisonanzeIeriRings" src="https://eurotales.eu/wp-content/themes/emaurri/risonanze/Touch_RisonanzeLinguistiche/index_Rings.html" ></iframe>
+
+    <div onclick="GetRisonanzeIeri()" id="IeriBtn" class="hiddenButton"></div>
+
+<!-- MOBILE VIEW -->
+
+
+<img id="LoadingScreen2" src="https://eurotales.eu/wp-content/uploads/risonanze/Images/pngs/LoadingScreen2.png"/>
+
+<div class="backgroundMobile">
+  
+  <img src="https://eurotales.eu/wp-content/themes/emaurri/risonanze/Touch_RisonanzeLinguistiche/Images/pngs/RisonanzeIERI1_backstatic.png" alt="">
+  <div class="risIeriMobileBtn">
+    <img src="https://eurotales.eu/wp-content/themes/emaurri/risonanze/Touch_RisonanzeLinguistiche/Images/pngs/risonanzeButtonMobile.png" alt="" srcset="">
+  </div>
+</div>
+
+    <div  onclick="GetRisonanzeOggi()" id="OggiBtn" class="hiddenButton"></div>
+    <div class="headerPanel">
+        <a href="https://eurotales.eu">
+          <img
+            src="https://eurotales.eu/wp-content/uploads/2021/05/Logo-eurotales-ROSSO-DEFINITIVO.png"
+            alt=""
+            srcset=""
+            class="imageHeader"
+          />
+        </a>
+       
+      </div>
+      
+    
+<img id="homebackground" src="https://eurotales.eu/wp-content/uploads/risonanze/Images/pngs/home-2-2.png">
+<div class="footerContainer">
+  <img
+    src="https://eurotales.eu/wp-content/uploads/2021/05/Logo-eurotales-ROSSO-DEFINITIVO.png"
+    alt=""
+    srcset=""
+    class="imageFooter"
+  />
+  <div class="textFooter">
+    <div class="footerLine">
+      TELEFONO: +39 0688378130<br /> 
+    </div>
+    <div class="footerLine">
+        INDIRIZZO: CIRCONVALLAZIONE TIBURTINA, 4 <br />
+        00185 ROMA, ITALIA
+    </div>
+    <div class="footerLine">
+        EMAIL: INFO@EUROTALES.EU</div>
+  </div>
+</div>
+    </div>
+
+   
+</body>
+</html>

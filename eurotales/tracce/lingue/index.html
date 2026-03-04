@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Items List</title>
+    <!-- Link to Google Fonts for Roboto -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      html {
+        background-color: #fbf3ea;
+        font-family: "Roboto", sans-serif;
+      }
+
+      h1 {
+        text-align: center;
+        font-size: 24px;
+        font-weight: bold;
+        margin-top: 20px;
+        color: black;
+      }
+
+      #items-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 20px;
+        padding: 20px;
+      }
+
+      .item {
+        text-align: center;
+        border: 1px solid #ddd;
+        padding: 10px;
+        border-radius: 5px;
+        background-color: #dbd3c8;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        cursor: pointer;
+      }
+
+      .item:hover {
+        transform: scale(1.1);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      }
+
+      .item img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        display: block;
+        margin: 0 auto;
+        border-radius: 5px;
+      }
+
+      .item p {
+        margin-top: 10px;
+        font-size: 16px;
+        color: #333;
+      }
+
+      .loader {
+        border: 4px solid rgba(0, 0, 0, 0.1);
+        border-left-color: transparent;
+        width: 36px;
+        height: 36px;
+        animation: spin89345 1s linear infinite;
+        border-radius: 50%;
+        margin: 0 auto;
+      }
+
+      @keyframes spin89345 {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      .filter-all,
+      .filter-word {
+        padding: 5px;
+        font-size: 14px;
+        font-weight: bold;
+        color: burlywood;
+        cursor: pointer;
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Tag title -->
+    <h1 id="tag-title"></h1>
+    <div id="filters-container">
+      <a href="https://eurotales.eu/lista-tracce/">
+        <span class="filter-all">Tutte le tracce</span>
+      </a>
+    </div>
+
+    <!-- Loader with circular style -->
+    <div class="loader" id="loader" style="display: block"></div>
+
+    <div id="items-container"></div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const itemsContainer = document.getElementById("items-container");
+        const tagTitle = document.getElementById("tag-title");
+
+        let luogoDataMap = {};
+        let nazioneDataMap = {};
+        let itemsData = [];
+
+        // Function to render items
+        function renderItems(data) {
+          itemsContainer.innerHTML = ""; // Clear current items
+          data.forEach((item) => {
+            const luogo = luogoDataMap[item.luogo] || {};
+            const nazione = nazioneDataMap[luogo.data?.nazione || ""] || {};
+
+            const itemLink = document.createElement("a");
+            itemLink.href = `https://eurotales.eu/scheda/?id=${item.id}`;
+
+            const itemDiv = document.createElement("div");
+            itemDiv.className = "item";
+
+            const img = document.createElement("img");
+            img.src = `https://www.directuseurotales.ambientinarratividigitali.it/assets/${item.img_cover}`;
+            img.alt = item.titolo;
+
+            const title = document.createElement("p");
+            title.innerHTML = `<span style="font-style:italic">${
+              item.titolo
+            }</span><br> ${luogo.data ? luogo.data.citta : "Unknown City"} (${
+              nazione.data ? nazione.data.nazione : ""
+            }) `;
+
+            itemDiv.appendChild(img);
+            itemDiv.appendChild(title);
+            itemLink.appendChild(itemDiv);
+            itemsContainer.appendChild(itemLink);
+          });
+        }
+
+        // Get the tag parameter from the URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const tagParam = urlParams.get("lingua"); // Get the value of 'tag' from the URL
+        console.log(tagParam);
+        var linguaId;
+        var iscrizioneId;
+        // Fetch data and populate items
+        fetch(
+          "https://www.directuseurotales.ambientinarratividigitali.it/items/tracce?filter[stato_traccia][_eq]=4"
+        )
+          .then((response) => response.json())
+          .then((data) => {
+            itemsData = data.data; // Save items data
+
+            fetch(
+              "https://www.directuseurotales.ambientinarratividigitali.it/items/lingue?limit=-1"
+            )
+              .then((response) => response.json())
+              .then((tagData) => {
+                console.log(tagData);
+                const tagObject = tagData.data.find(
+                  (tag) => tag.lingua == tagParam
+                );
+
+                if (tagObject) {
+                  linguaId = tagObject.id;
+                  tagTitle.textContent =
+                    tagObject.lingua.charAt(0).toUpperCase() +
+                    tagObject.lingua.slice(1);
+                } else {
+                  tagTitle.textContent = "Lingua not found";
+                }
+
+                fetch(
+                  "https://www.directuseurotales.ambientinarratividigitali.it/items/iscrizione_lingue?filter[lingue_id][_eq]=" +
+                    linguaId
+                )
+                  .then((response) => response.json())
+                  .then((data) => {
+                    console.log(data);
+                    iscrizioneId = data.data.map(
+                      (object) => object.iscrizione_id
+                    );
+                  });
+                fetch(
+                  "https://www.directuseurotales.ambientinarratividigitali.it/items/tracce_iscrizione?limit=-1"
+                )
+                  .then((response) => response.json())
+                  .then((data) => {
+                    console.log(iscrizioneId);
+                    const myFilterObject = data.data
+                      .filter((tag) => iscrizioneId.includes(tag.iscrizione_id))
+                      .map((object) => object.tracce_id);
+                    console.log(myFilterObject);
+
+
+                let ItemsFiltered=[]
+                itemsData.forEach(element => {
+                    if(myFilterObject.includes(element.id)){
+                        ItemsFiltered.push(element)
+                    }
+                    
+                });
+                itemsData=ItemsFiltered
+                console.log(ItemsFiltered)
+                  });
+                // Fetch luogo and nazione data
+                const luogoPromises = itemsData.map((item) => {
+                  if (!luogoDataMap[item.luogo]) {
+                    return fetch(
+                      `https://www.directuseurotales.ambientinarratividigitali.it/items/luogo/${item.luogo}`
+                    )
+                      .then((response) => response.json())
+                      .then((luogoData) => {
+                        luogoDataMap[item.luogo] = luogoData;
+                        if (
+                          luogoData.data &&
+                          luogoData.data.nazione &&
+                          !nazioneDataMap[luogoData.data.nazione]
+                        ) {
+                          return fetch(
+                            `https://www.directuseurotales.ambientinarratividigitali.it/items/nazioni_tracce/${luogoData.data.nazione}`
+                          )
+                            .then((response) => response.json())
+                            .then((nazioneData) => {
+                              nazioneDataMap[luogoData.data.nazione] =
+                                nazioneData;
+                            });
+                        }
+                      });
+                  }
+                  return Promise.resolve();
+                });
+
+                Promise.all(luogoPromises).then(() => {
+                  renderItems(itemsData); // Render all items
+                  document.querySelector(".loader").style.display = "none";
+                });
+              });
+          })
+          .catch((error) => console.error("Error fetching data:", error));
+      });
+    </script>
+  </body>
+</html>

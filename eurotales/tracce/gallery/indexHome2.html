@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Items List</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    html {
+      background-color: #fbf3ea;
+      font-family: "Roboto", sans-serif;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    #filters-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 20px;
+      padding: 10px;
+    }
+
+    .filter-all,
+    .filter-word {
+      padding: 5px;
+      font-size: 14px;
+      font-weight: bold;
+      color: burlywood;
+      cursor: pointer;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .filter-all:hover,
+    .filter-word:hover {
+      color: rgb(177, 147, 108);
+    }
+
+    .active-filter {
+      text-decoration: underline;
+      color: rgb(177, 147, 108);
+    }
+
+    #items-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .item {
+      text-align: center;
+      border: 1px solid #ddd;
+      padding: 10px;
+      border-radius: 5px;
+      background-color: #dbd3c8;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+
+    .item:hover {
+      transform: scale(1.1);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .item img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+      margin: 0 auto;
+      border-radius: 5px;
+    }
+
+    .item p {
+      margin-top: 10px;
+      font-size: 16px;
+      color: #333;
+    }
+
+    .loader {
+      border: 4px solid rgba(0, 0, 0, 0.1);
+      border-left-color: transparent;
+      width: 36px;
+      height: 36px;
+      animation: spin89345 1s linear infinite;
+      border-radius: 50%;
+      margin: 0 auto;
+    }
+
+    @keyframes spin89345 {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+    /* Skeleton cards */
+.skeleton-card {
+  border-radius: 5px;
+  padding: 10px;
+  background: #dbd3c8;
+}
+
+.skeleton-img {
+  width: 100%;
+  height: 200px;
+  border-radius: 5px;
+  background: linear-gradient(
+    90deg,
+    #d6cec4 25%,
+    #ece4d9 37%,
+    #d6cec4 63%
+  );
+  background-size: 400% 100%;
+  animation: skeleton-loading 1.4s ease infinite;
+}
+
+.skeleton-text {
+  height: 16px;
+  margin-top: 10px;
+  width: 80%;
+  border-radius: 4px;
+  background: linear-gradient(
+    90deg,
+    #d6cec4 25%,
+    #ece4d9 37%,
+    #d6cec4 63%
+  );
+  background-size: 400% 100%;
+  animation: skeleton-loading 1.4s ease infinite;
+}
+
+.skeleton-text.short {
+  width: 60%;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
+}
+
+  </style>
+</head>
+
+<body>
+  <div id="filters-container">
+    <span class="filter-all">Tutte le tipologie</span>
+    <div class="filter-tipologias"></div>
+  </div>
+
+  <div style="display:flex; justify-content:flex-end; gap:10px; padding:10px 20px">
+
+    <button id="toggleChronologyBtn" style="
+      padding:6px 12px;
+      font-size:13px;
+      border-radius:6px;
+      border:1px solid burlywood;
+      background:white;
+      color:black;
+      cursor:pointer;
+    ">
+      📜 Ordina per secolo
+    </button>
+
+    <input id="searchInput" type="text" placeholder="Scrivi qui la tua ricerca..." style="
+      width: 30%;
+      padding: 6px;
+      font-size: 14px;
+      color: black;
+    " />
+
+  </div>
+
+
+  <div class="loader" id="loader" style="display: block"></div>
+
+  <div id="items-container"></div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+
+      const itemsContainer = document.getElementById("items-container");
+
+      const filtersContainer = document.querySelector(".filter-tipologias");
+      const allFilter = document.querySelector(".filter-all");
+      const loader = document.getElementById("loader");
+showInitialSkeletons(12);
+
+      let luogoDataMap = {};
+      let nazioneDataMap = {};
+      let tipologiaData = [];
+
+      let itemsData = [];
+      let currentFilteredItems = [];
+      let visibleItems = [];
+
+      let itemsPerLoad = 12;   // *** primeras fichas cargadas
+      let currentIndex = 0;
+      let isChronological = false;
+ function parseSecolo(secoloRaw) {
+  if (!secoloRaw || secoloRaw === "" || secoloRaw === null) {
+    return { main: 9999, sub: 9999 }; // SIEMPRE al final
+  }
+
+  const cleaned = secoloRaw.toString().trim();
+
+  if (cleaned.includes("_")) {
+    const parts = cleaned.split("_");
+    return {
+      main: parseInt(parts[0], 10) || 9999,
+      sub: parseInt(parts[1], 10) || 9999
+    };
+  }
+
+  return {
+    main: parseInt(cleaned, 10) || 9999,
+    sub: 0
+  };
+}
+
+
+      const toggleBtn = document.getElementById("toggleChronologyBtn");
+
+      //====================================
+      //  BOTON ORDEN CRONOLOGICO
+      //====================================
+      toggleBtn.addEventListener("click", () => {
+        isChronological = !isChronological;
+
+        toggleBtn.style.background = isChronological ? "#fff" : "burlywood";
+        toggleBtn.style.color = isChronological ? "#000" : "#fff";
+
+        if (isChronological) {
+          currentFilteredItems.sort((a, b) => {
+
+            const sA = parseSecolo(a?.secolo?.secolo);
+            const sB = parseSecolo(b?.secolo?.secolo);
+
+            // Primero siglo principal
+            if (sA.main !== sB.main) {
+              return sA.main - sB.main;
+            }
+
+            // Después sub-siglo (ej: 01,02,03)
+            return sA.sub - sB.sub;
+
+          });
+        } else {
+          // cuando lo apagas vuelve al ORDEN ORIGINAL,
+          // NO random (eso causaba el caos)
+          currentFilteredItems = [...itemsData];
+        }
+
+        resetAndRender();
+      });
+
+
+
+      function clearActiveFilters() {
+        document.querySelectorAll(".filter-all, .filter-word")
+          .forEach(f => f.classList.remove("active-filter"));
+      }
+
+
+      //====================================
+      //  RENDER con lazy loading
+      //====================================
+      function renderNextItems() {
+        const slice = currentFilteredItems.slice(currentIndex, currentIndex + itemsPerLoad);
+        slice.forEach(renderSingleItem);
+
+        currentIndex += itemsPerLoad;
+        loader.style.display = "none";
+      }
+
+
+      function resetAndRender() {
+        itemsContainer.innerHTML = "";
+        currentIndex = 0;
+        renderNextItems();
+      }
+
+
+      function renderSingleItem(item) {
+        const luogo = luogoDataMap[item.luogo] || {};
+        const nazione = nazioneDataMap[luogo.data?.nazione || ""] || {};
+
+        const itemLink = document.createElement("a");
+        itemLink.href = `https://eurotales.eu/scheda/?id=${item.id}`;
+
+        const itemDiv = document.createElement("div");
+        itemDiv.className = "item";
+
+        const img = document.createElement("img");
+        img.loading = "lazy";
+        img.src = `https://www.directuseurotales.ambientinarratividigitali.it/assets/${item.img_cover}`;
+        img.alt = item.titolo;
+
+        const title = document.createElement("p");
+        const secolo = item.cronologia?.DTZG || "";
+
+        title.innerHTML = `
+      <span style="font-style:italic">${item.titolo}</span><br>
+      ${luogo.data?.citta || ""} (${nazione.data?.nazione || ""})<br>
+      ${secolo}
+    `;
+
+        itemDiv.appendChild(img);
+        itemDiv.appendChild(title);
+        itemLink.appendChild(itemDiv);
+        itemsContainer.appendChild(itemLink);
+      }
+
+
+
+      //====================================
+      //  SCROLL load
+      //====================================
+let isLoadingMore = false;
+
+window.addEventListener("scroll", () => {
+  if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 400) {
+
+    if (!isLoadingMore && currentIndex < currentFilteredItems.length) {
+      isLoadingMore = true;
+
+      showScrollSkeletons(6); // SOLO AÑADE AL FINAL
+
+      setTimeout(() => {
+        removeScrollSkeletons(); // quita solo los nuevos skeletons
+        renderNextItems();
+        isLoadingMore = false;
+      }, 400);
+    }
+  }
+});
+
+
+
+
+
+      //====================================
+      // FETCH DATA
+      //====================================
+
+      fetch("https://www.directuseurotales.ambientinarratividigitali.it/items/tracce?fields=*,cronologia.*,secolo.*&filter[stato_traccia][_eq]=4&sort=secolo.secolo")
+        .then(rb => rb.json())
+        .then(data => {
+
+          itemsData = data.data;
+
+          fetch("https://www.directuseurotales.ambientinarratividigitali.it/items/tipologia")
+            .then(res => res.json())
+            .then(tipologia => {
+
+              tipologiaData = tipologia.data;
+
+              // CREAZIONE FILTRI
+              let tipologiaHasItems = {};
+              itemsData.forEach(i => tipologiaHasItems[i.tipologia] = true);
+
+              tipologiaData.forEach(tip => {
+                if (tipologiaHasItems[tip.id]) {
+                  const filter = document.createElement("span");
+                  filter.className = "filter-word";
+                  filter.textContent = tip.tipologia;
+
+                  filter.onclick = () => {
+                    clearActiveFilters();
+                    filter.classList.add("active-filter");
+                    document.getElementById("searchInput").value = "";
+
+                    currentFilteredItems = itemsData.filter(i => i.tipologia == tip.id);
+                    resetAndRender();
+                  };
+
+                  filtersContainer.appendChild(filter);
+                }
+              });
+
+
+
+       // ============ LUOGHI y NAZIONI en BLOQUE ============
+
+// 1. Sacamos todos los ID únicos de luogo
+const allLuogoIds = [...new Set(itemsData.map(i => i.luogo).filter(Boolean))];
+
+// 2. Pedimos TODOS los luoghi en una sola llamada
+fetch(`https://www.directuseurotales.ambientinarratividigitali.it/items/luogo?filter[id][_in]=${allLuogoIds.join(",")}`)
+  .then(r => r.json())
+  .then(luoghi => {
+
+    luoghi.data.forEach(l => {
+      luogoDataMap[l.id] = { data: l };
+    });
+
+    // 3. Sacamos todos los ID únicos de nazione
+    const allNazioneIds = [...new Set(
+      luoghi.data
+        .map(l => l.nazione)
+        .filter(Boolean)
+    )];
+
+    // 4. Pedimos TODAS las nazioni en una sola llamada
+    return fetch(`https://www.directuseurotales.ambientinarratividigitali.it/items/nazioni_tracce?filter[id][_in]=${allNazioneIds.join(",")}`);
+  })
+  .then(r => r.json())
+  .then(nazioni => {
+
+    nazioni.data.forEach(n => {
+      nazioneDataMap[n.id] = { data: n };
+    });
+
+    // ✅ AHORA YA ESTÁ TODO
+    currentFilteredItems = [...itemsData];
+    resetAndRender();
+
+    loader.style.display = "none";
+    allFilter.classList.add("active-filter");
+
+  });
+
+              Promise.all(luogoPromises).then(() => {
+
+                currentFilteredItems = [...itemsData]; resetAndRender();
+
+                loader.style.display = "none";
+                allFilter.classList.add("active-filter");
+
+                allFilter.onclick = () => {
+                  clearActiveFilters();
+                  allFilter.classList.add("active-filter");
+                  currentFilteredItems = [...itemsData];
+                  resetAndRender();
+                }
+
+
+                // SEARCH
+                const searchInput = document.getElementById("searchInput");
+
+                searchInput.addEventListener("input", function () {
+                  const query = this.value.toLowerCase();
+
+                  clearActiveFilters();
+                  allFilter.classList.add("active-filter");
+
+                  currentFilteredItems = itemsData.filter(item => {
+                    const titolo = item.titolo?.toLowerCase() || "";
+                    const luogo = luogoDataMap[item.luogo]?.data || {};
+                    const citta = luogo.citta?.toLowerCase() || "";
+                    const nazione = nazioneDataMap[luogo.nazione]?.data?.nazione?.toLowerCase() || "";
+
+                    return titolo.includes(query) || citta.includes(query) || nazione.includes(query);
+                  });
+
+                  resetAndRender();
+                });
+
+              });
+
+            });
+
+        })
+        .catch(err => console.log(err));
+function showInitialSkeletons(n = 12) {
+  itemsContainer.innerHTML = "";
+
+  for (let i = 0; i < n; i++) {
+    const skeleton = createSkeleton();
+    itemsContainer.appendChild(skeleton);
+  }
+}
+
+function showScrollSkeletons(n = 6) {
+  for (let i = 0; i < n; i++) {
+    const skeleton = createSkeleton();
+    skeleton.classList.add("scroll-skeleton");
+    itemsContainer.appendChild(skeleton);
+  }
+}
+
+function removeScrollSkeletons() {
+  document.querySelectorAll(".scroll-skeleton").forEach(s => s.remove());
+}
+
+function createSkeleton() {
+  const skeleton = document.createElement("div");
+  skeleton.className = "skeleton-card";
+
+  skeleton.innerHTML = `
+    <div class="skeleton-img"></div>
+    <div class="skeleton-text"></div>
+    <div class="skeleton-text short"></div>
+  `;
+
+  return skeleton;
+}
+
+
+    });
+    
+  </script>
+
+</body>
+
+</html>

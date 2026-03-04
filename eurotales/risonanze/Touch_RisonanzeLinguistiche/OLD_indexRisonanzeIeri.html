@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!--Style-->
+    <link rel="stylesheet" href="style_Ieri.css">
+    <!--Charts-->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.0.0/chartjs-plugin-datalabels.min.js" integrity="sha512-R/QOHLpV1Ggq22vfDAWYOaMd5RopHrJNMxi8/lJu8Oihwi4Ho4BRFeiMiCefn9rasajKjnx9/fTQ/xkWnkDACg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://unpkg.com/chart.js-plugin-labels-dv/dist/chartjs-plugin-labels.min.js"></script>
+    <!--Data-->
+    <script src="JS/RisonanzeIeri/data.js"></script>
+    <!--Logic-->
+    <script src="JS/RisonanzeIeri/RisonanzeIeriLogic.js"></script>
+</head>
+
+
+<body>
+    <!--HiddenBtns-->
+    <div onclick='ManageBackBtn()' id="BackBtn" class="hiddenButton"> </div>
+   
+    <div id="HeaderSide" class="sideCopyRegular"></div>
+    <div id="HeaderSide2" class="sideCopyRegular2"></div>
+    <div class="InfoChart" id="descChartA"></div>
+    <div class="InfoChart" id="descChartB"></div>
+
+    <!--Chart Lingue Madri -->
+    <div id="ChartContainerB" class="chart-container">
+        <canvas id="myChart"></canvas>
+      </div>
+     
+      <img id="BackgroundRisonanzeIeri" src="Images/pngs/RisonanzeIERI1_backstatic.png">
+      <!--MapBox..to do-->
+      
+
+
+        
+
+<script src="JS/RisonanzeIeri/IERI_chartManager.js"></script>
+</body>
+</html>

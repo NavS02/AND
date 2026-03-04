@@ -1,0 +1,141 @@
+
+@font-face {
+  font-family: 'Montserrat-Regular';
+  src: url('Fonts/Montserrat/Montserrat-Regular.otf') format('opentruetype');
+}
+@font-face {
+  font-family: 'Montserrat-Bold';
+  src: url('Fonts/Montserrat/Montserrat-Bold.otf') format('opentruetype');
+}
+@font-face {
+  font-family: 'Montserrat-Italic';
+  src: url('Fonts/Montserrat/Montserrat-Italic.otf') format('opentruetype');
+}
+
+body
+{
+    width: 3840px;
+    height: 2160px;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0);
+    margin: 0px;
+    padding: 0px;
+}
+
+#BackgroundRisonanzeIeri
+{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top:0;
+  left: 0;
+  margin-left: 0px;
+  margin-top: 0px;
+  padding: 0px;
+}
+
+/*HiddenBttns*/
+.hiddenButton
+{
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    opacity: 0.5;
+}
+#BackBtn
+{
+    background: transparent!important;
+    z-index: 1;
+    position: absolute;
+    top: 1824px;
+    height: 287px;
+    left: 225px;
+    width: 347px;
+}
+  /*HOME SIDE INFO:*/
+  .sideCopyRegular
+  {
+      font-family: 'Montserrat-Regular';
+
+      position: absolute;
+      font-size: 35px;
+      color: black;
+      z-index: 10;
+      left: 73px;
+      top: 213px;
+  }
+  .sideCopyRegular b
+  {
+    font-family: 'Montserrat-Bold';
+  }
+/*Chart Descriptions:*/
+.InfoChart
+{
+  font-family: 'Montserrat-Regular';
+  font-size: 35px;
+  position: absolute;
+  z-index: 10;
+  text-align: center;
+  width: 1000px;
+}
+
+#descChartA
+{
+  top: 1738px;
+  left: 860px;
+}
+#descChartB
+{
+  top:1738px;
+  left: 2331px;
+}
+/*Chart Lingue Madri:*/
+#ChartContainerB
+{
+    height: 1600px;
+    display: block;
+    box-sizing: border-box;
+    width: 1600px;
+    position: absolute;
+    left: 572px;
+    top: 245px;
+    z-index: 1;
+}
+/*MapBox:*/
+#MapBox
+{
+    background-color: 'transparent';
+    height: 736px;
+    width: 1200px;
+    position: absolute;
+    z-index: 2;
+    display: none;
+    left: 1989px
+}
+.MapMoved
+{
+    left: 275px!important;
+    top: 83px!important;
+}
+
+  /*DA MUOVERE ALL IFRAME RINGS:*/
+#DescriptionContainer
+{
+    background-color: lightcyan;
+    position: absolute;
+    margin-top:100px;
+    margin-left:1000px;
+    height: 1000px;
+    width: 1000px;
+    font-size:35px;
+    font-family:"Montserrat-Regular";
+    overflow: scroll;
+}
+#DescriptionContainer i
+{
+    font-family:"Montserrat-Italic"!important;
+}
+#DescriptionContainer b
+{
+    font-family:"Montserrat-Bold"!important;
+}

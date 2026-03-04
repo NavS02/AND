@@ -1,0 +1,1171 @@
+@font-face {
+  font-family: "Montserrat-Regular";
+  src: url("Fonts/Montserrat/Montserrat-Regular.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Montserrat-Bold";
+  src: url("Fonts/Montserrat/Montserrat-Bold.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Montserrat-ExtraBold";
+  src: url("Fonts/Montserrat/Montserrat-ExtraBold.ttf") format("truetype");
+}
+canvas {
+  overflow: hidden !important;
+}
+.popup {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+}
+
+.popup-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  padding: 20px;
+  background-color: #f4ede0;
+  border-radius: 10px;
+  width: 60%;
+  height: 600px;
+  font-family: "Montserrat-Regular";
+}
+.returnHomeArrow button {
+  z-index: 50;
+  position: absolute;
+  bottom: 25%;
+  left: 48%;
+  display: block;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  z-index: 52;
+  background-color: rgba(255, 255, 255, 0.418);
+  font-family: "Montserrat-Regular";
+  color: rgb(0, 0, 0);
+  font-size: 36px;
+  font-weight: 600;
+}
+.PopupinfoD {
+  background-color: rgba(0, 0, 0, 0.8);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  display: none;
+}
+.PopupinfoD > .risoTitle {
+  z-index: 101 !important;
+  position: absolute;
+  font-family: "Montserrat-ExtraBold";
+  color: #912b3d;
+  font-size: 60px;
+  letter-spacing: 0cm;
+  top: 32%;
+  text-align: center;
+  left: 7%;
+}
+.PopupinfoD > .ieriTitle {
+  z-index: 101 !important;
+  position: absolute;
+  font-family: "Montserrat-ExtraBold";
+  color: #912b3d;
+  font-size: 60px;
+  letter-spacing: 0cm;
+  top: 12%;
+  left: 48%;
+}
+.PopupinfoD > .oggiTitle {
+  z-index: 101 !important;
+  position: absolute;
+  font-family: "Montserrat-ExtraBold";
+  color: #2b917f;
+  font-size: 60px;
+  letter-spacing: 0cm;
+  top: 12%;
+  left: 80%;
+}
+.PopupinfoD > .descriptionRisoPop {
+  color: rgb(228, 228, 228);
+  position: absolute;
+  left: 9%;
+  top: 35%;
+  max-width: 25%;
+  text-align: justify;
+  font-family: "Montserrat-Regular";
+  line-height: 20px;
+}
+.PopupinfoD > .descriptionIeriPop {
+  color: rgb(228, 228, 228);
+  position: absolute;
+  left: 40%;
+  top: 35%;
+  max-width: 25%;
+  text-align: justify;
+  font-family: "Montserrat-Regular";
+  line-height: 20px;
+}
+.PopupinfoD > .descriptionOggiPop {
+  color: rgb(228, 228, 228);
+  position: absolute;
+  left: 72%;
+  top: 35%;
+  max-width: 25%;
+  text-align: justify;
+  font-family: "Montserrat-Regular";
+  line-height: 20px;
+}
+.sideCopyRegular {
+  font-family: "Montserrat-Regular";
+
+  position: absolute;
+  font-size: 20px;
+  color: black;
+  z-index: 10;
+  left: 50px;
+  top: 8%;
+  max-width: 40%;
+  font-weight: 600;
+}
+.sideCopyRegular2 {
+  font-family: "Montserrat-Regular";
+
+  position: absolute;
+  font-size: 20px;
+  color: black;
+  z-index: 10;
+  right: 50px;
+  top: 8%;
+  max-width: 40%;
+  font-weight: 600;
+}
+.sideCopyRegular b {
+  font-family: "Montserrat-Bold";
+}
+
+/*SIDE PIES*/
+
+#BoxHelper {
+  z-index: 5;
+  height: 90%;
+  width: auto;
+  position: absolute;
+  left: -5%;
+  top: 12%;
+  display: none;
+}
+
+#InfoPies {
+  position: absolute;
+  height: 187px;
+  width: 478px;
+  text-align: center;
+  top: 15%;
+  left: 0%;
+  z-index: 10;
+  font-size: 35px;
+  font-family: "Montserrat-Regular";
+  display: none !important;
+}
+#LoadingScreen2 {
+  display: none;
+}
+.HelperBtns {
+  position: absolute;
+
+  width: 5%;
+  height: 30%;
+  margin-left: 5%;
+  margin-top: 20%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  z-index: 99 !important;
+}
+.HelperItem {
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+  margin-bottom: 10px;
+  font-size: 28px;
+  font-family: "Montserrat-Regular";
+}
+.HelperPie {
+  width: 200px;
+  height: 200px;
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.InfoChart {
+  font-family: "Montserrat-Regular";
+  font-size: 26px;
+  position: absolute;
+  z-index: 10;
+  text-align: center;
+  width: 1000px;
+}
+#descChartA {
+  top: 1738px;
+  left: 860px;
+}
+#descChartB {
+  bottom: 5%;
+  left: 30%;
+  z-index: 9999;
+}
+
+body {
+  margin-bottom: 1000px;
+  z-index: 0 !important;
+  position: static !important;
+}
+
+#LoadingScreen {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+}
+
+.MyIFrame {
+  position: absolute;
+  z-index: 10;
+  margin-top: 0px;
+  margin-left: 0px;
+  width: 100%;
+  height: 100%;
+  border-width: 0px;
+  border-style: none;
+  border-color: transparent;
+  border-image: none;
+  top: 0px;
+  left: 0px;
+  display: none;
+}
+
+/*HOME*/
+
+#BtnCreditiImg {
+  position: absolute;
+  z-index: 1;
+  margin-left: 3px;
+  width: auto;
+  height: 128px;
+  border-width: 0px;
+  border-style: none;
+  display: block;
+}
+#homebackground,
+#PopupInfoFull,
+#PopupCreditsFull {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+}
+
+.footerContainer {
+  display: none;
+
+  position: fixed;
+  width: 100%;
+  height: 160px !important;
+  z-index: 0 !important;
+  bottom: 0;
+  left: 0;
+  background-color: #dfdfde;
+}
+
+#PopupInfoFull,
+#PopupCreditsFull {
+  display: none;
+  z-index: 2;
+}
+
+#GetBtn_FromInfoFull {
+  position: absolute;
+  width: 20%;
+  height: 20%;
+  background-color: transparent;
+  top: 40%;
+  left: 45%;
+  z-index: 5;
+}
+#BackBtn_FromInfoFull,
+#BackBtn_FromCreditsFull {
+  opacity: 0.5;
+  display: none;
+
+  background: transparent !important;
+  z-index: 51;
+  position: absolute;
+  bottom: 15%;
+  height: 10%;
+  left: 5%;
+  width: 10%;
+}
+
+.hiddenButton {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  opacity: 0.5;
+  z-index: 4;
+}
+
+#IeriBtn {
+  position: absolute;
+  width: 25%;
+  height: 40%;
+  opacity: 0.5;
+  background-color: rgba(255, 255, 255, 0);
+  top: 25%;
+  left: 12%;
+  z-index: 1;
+}
+#OggiBtn {
+  position: absolute;
+  width: 25%;
+  height: 40%;
+  opacity: 0.5;
+  background-color: rgba(255, 255, 255, 0);
+  top: 25%;
+  right: 12%;
+  z-index: 1;
+}
+
+.pagecontent {
+  overflow: hidden;
+  background-color: rgba(255, 0, 0, 0);
+  margin: 0px;
+  padding: 0px;
+  width: 100%;
+  height: 100%;
+}
+
+/*HomeRisonanze OGGI*/
+#BackBtn {
+  background: transparent !important;
+  z-index: 9999 !important;
+  position: absolute;
+  bottom: 8%;
+  height: 10%;
+  left: 5%;
+  width: 10%;
+}
+
+#backgroundStatic {
+  width: 100% !important;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+/*???*/
+#ChartContainer {
+  height: 445px;
+  display: block;
+  box-sizing: border-box;
+  width: 445px;
+  position: absolute;
+  left: 459px;
+  top: 308px;
+  z-index: 10;
+}
+
+/*Page B Risonanze OGGI*/
+
+#ChartContainerB {
+  height: 900px;
+  display: block;
+  box-sizing: border-box;
+  width: 900px;
+  position: absolute;
+  margin-left: 12%;
+  z-index: 11;
+}
+#ChartContainerB2 {
+  height: 900px;
+  display: block;
+  box-sizing: border-box;
+  width: 900px;
+  position: absolute;
+  margin-left: -50px;
+  z-index: 10;
+}
+#ChartContainerInitial {
+  z-index: 9999 !important;
+}
+
+#ChartContainer_Parent {
+  display: none;
+  box-sizing: border-box;
+  position: absolute;
+  /* background-color: rgba(255, 0, 0, 0.24);
+   */
+  z-index: 4;
+
+  height: 900px;
+  width: 900px;
+  margin-left: 50%;
+}
+
+#ChartContainerInitial {
+  display: block;
+  box-sizing: border-box;
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0);
+  z-index: 4;
+  height: 800px;
+  width: 800px;
+  margin-left: 12%;
+  margin-top: 8%;
+}
+#MapBox {
+  background-color: "transparent";
+  position: absolute;
+  z-index: 2;
+  display: none;
+  right: 30%;
+  top: 5%;
+  bottom: 0;
+}
+.MapMoved {
+  left: 0 !important;
+  top: 15% !important;
+  width: 60%;
+  height: 70%;
+}
+
+/*IERI*/
+
+/*List of Names*/
+#ListOfNamesContainer {
+  position: absolute;
+
+  width: 800px;
+  height: 800px;
+  top: 150px;
+  right: 3%;
+  display: none;
+  overflow-y: scroll;
+  z-index: 9 !important;
+}
+
+#TitlePersonaggioIERI {
+  font-family: "Montserrat-Bold";
+  font-size: 35px;
+  line-height: 0.8;
+  position: absolute;
+  top: 10px;
+  right: 19%;
+  display: none;
+  z-index: 10;
+  max-width: 606px;
+}
+
+#ContainerInfoIeri {
+  position: absolute;
+  width: 40%;
+  max-height: 90%;
+  top: 5%;
+
+  right: 5%;
+  display: none;
+  overflow-y: scroll;
+  z-index: 10;
+  font-family: "Montserrat-Regular";
+  font-size: 18px;
+  line-height: 1.6;
+  text-align: justify;
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+#ContainerInfoIeri b {
+  font-family: "Montserrat-Bold" !important;
+}
+.p5Canvas {
+  overflow: hidden !important;
+}
+.NameIeriItem {
+  font-family: "Montserrat-Bold";
+  font-size: 24px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  padding-top: 25px;
+  padding-bottom: 25px;
+  color: black;
+  text-align: center;
+  background: #8080804a;
+  padding: 20px;
+  width: 40%;
+  border-radius: 100px;
+  display: inline-block;
+  margin-right: 5%;
+  box-sizing: border-box;
+}
+
+.NameIeriItem:nth-child(2n) {
+  margin-right: 0;
+}
+
+.NameIeriItem:nth-child(odd) {
+  clear: both;
+}
+
+#FrameRisonanzeIeriRings {
+  width: 30% !important;
+  height: 60% !important;
+  padding: 0px;
+  top: 20%;
+  margin-left: 20%;
+  opacity: 0.95;
+  overflow: hidden !important;
+}
+#FrameRisonanzeIeriRings * {
+  overflow: hidden !important;
+}
+/*Buttns*/
+#BottomBtn_SX_IERI {
+  height: 407px;
+  width: auto;
+  position: absolute;
+  z-index: 1;
+  top: 1765px;
+  left: 902px;
+}
+#BottomBtn_DX_IERI {
+  height: 407px;
+  width: auto;
+  position: absolute;
+  z-index: 1;
+  top: 1765px;
+  left: 2377px;
+}
+
+.ItemColorLegend {
+  display: flex;
+  flex-direction: row;
+
+  align-items: center;
+  font-size: 14px;
+  margin-top: -12px !important;
+}
+.pageTitle {
+  z-index: 101 !important;
+  position: absolute;
+  font-family: "Montserrat-Bold";
+  color: #912b3d;
+  top: 1%;
+  left: 8%;
+  font-size: 60px;
+  letter-spacing: 0cm;
+}
+.ColorDot {
+  height: 20px;
+  width: 20px;
+  border-radius: 35px;
+  margin-right: 20px;
+}
+.contentWrapper {
+  display: flex;
+  align-items: flex-start;
+}
+
+#CentralImgRing {
+  background-color: transparent;
+  z-index: 1;
+  pointer-events: none;
+  height: 175px;
+  width: 175px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: left;
+  margin-top: 20px;
+
+  aspect-ratio: 1 / 1;
+}
+
+canvas {
+  overflow: hidden !important;
+}
+
+.textContainer {
+  margin-left: 40px;
+  align-self: flex-start;
+}
+
+/*SCROLLBARS*/
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #dadada3a;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #00000079;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0);
+}
+.headerPanel {
+  position: absolute;
+  width: 100%;
+  height: 80px !important;
+  background: rgb(255, 255, 255);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.838) 0%,
+    rgba(0, 0, 0, 0) 50%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  z-index: 100 !important;
+  top: 0;
+  left: 0;
+}
+.imageHeader {
+  height: 80px;
+  margin-left: 1%;
+  margin-top: 5px;
+}
+
+.imageFooter {
+  position: absolute;
+  margin-left: 10%;
+  margin-top: 20px;
+  width: 150px;
+  border-right: solid 1.5px #b37878;
+  padding-right: 2%;
+}
+.textFooter {
+  position: absolute;
+  margin-left: 25%;
+  margin-top: 20px;
+}
+.footerLine {
+  line-height: 20px;
+  font-family: "Montserrat-Regular";
+  font-size: 11px;
+  line-height: 1em;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  color: #2b2b2b !important;
+  text-transform: uppercase;
+  padding: 10px;
+}
+.backgroundMobile {
+  display: none;
+}
+.risIeriMobileBtn {
+  display: none;
+}
+#backgroundArrow {
+  display: none;
+}
+@media only screen and (max-width: 1920px) {
+  .sideCopyRegular {
+    font-family: "Montserrat-Regular";
+
+    position: absolute;
+    font-size: 20px;
+    color: black;
+    z-index: 10;
+    left: 50px;
+    top: 9%;
+    max-width: 40%;
+  }
+  #myMap {
+    width: 800px !important;
+    height: 800px !important;
+  }
+  #MapBox {
+    width: 80%;
+    height: 80%;
+    top:7% !important;
+    right: 50% !important;
+    z-index: 10;
+    text-align: right;
+  }
+  .MapMoved #myMap {
+    width: 800px !important;
+    height: 800px !important;
+  }
+  .MapMoved {
+    display: block;
+    position: absolute !important;
+    margin-left: -45% !important;
+    margin-top: 5% !important;
+    width: 40% !important;
+    height: 60% !important;
+  }
+  #ListOfNamesContainer {
+    top: 10% !important;
+    left: 50% !important;
+    display: flex;
+    flex-wrap: wrap;
+    max-height: 800px;
+    width: 50%;
+    overflow-y: auto;
+    z-index: 9 !important;
+  }
+  .bodyRings * {
+    overflow: hidden !important;
+  }
+  #myCanvas {
+    overflow: hidden !important;
+    width: 500px !important;
+    height: 500px !important;
+  }
+  #ChartContainerB {
+    margin-top: 2%;
+  }
+  #ChartContainer_Parent {
+    margin-top: 2%;
+  }
+  #bodyComposerRings {
+    z-index: 100;
+  }
+  #bodyComposerRings main {
+    width: 500px !important;
+    height: 500px !important;
+  }
+  #GetBtn_FromInfoFull {
+    position: absolute;
+    width: 16%;
+    height: 20%;
+    background-color: transparent;
+    top: 25%;
+    left: 45%;
+    z-index: 5;
+  }
+}
+#IeriBtn {
+  position: absolute;
+  width: 25%;
+  height: 40%;
+  opacity: 0.5;
+  background-color: rgba(255, 255, 255, 0);
+  top: 20%;
+  left: 12%;
+  z-index: 1;
+}
+@media only screen and (max-width: 1460px) {
+  #bodyComposerRings main {
+    width: 300px !important;
+    height: 300px !important;
+  }
+  #myCanvas {
+    overflow: hidden !important;
+    width: 300px !important;
+    height: 300px !important;
+    margin-top: 12% !important;
+  }
+  #myMap {
+    width: 800px !important;
+    height: 800px !important;
+  }
+  #MapBox {
+    width: 80%;
+    height: 80%;
+    top: 8% !important;
+    right: 65% !important;
+    z-index: 10;
+    text-align: right;
+  }
+  .MapMoved #myMap {
+    width: 600px !important;
+    height: 600px !important;
+  }
+  .MapMoved {
+    display: block;
+    position: absolute !important;
+    margin-left: -49% !important;
+    margin-top: 5% !important;
+    width: 40% !important;
+    height: 60% !important;
+  }
+  #ListOfNamesContainer {
+    top: 10% !important;
+    left: 50% !important;
+    display: flex;
+    flex-wrap: wrap;
+    max-height: 800px;
+    width: 50%;
+    overflow-y: auto;
+    z-index: 9 !important;
+  }
+  .bodyRings * {
+    overflow: hidden !important;
+  }
+
+  #bodyComposerRings {
+    z-index: 100;
+  }
+  #bodyComposerRings main {
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  #ChartContainerB {
+    height: 750px;
+    display: block;
+    box-sizing: border-box;
+    width: 750px;
+    position: absolute;
+    margin-left: -50px;
+    z-index: 11;
+  }
+  #ChartContainerB2 {
+    height: 750px;
+    display: block;
+    box-sizing: border-box;
+    width: 750px;
+    position: absolute;
+    margin-left: -50px;
+    z-index: 10;
+  }
+  .pageTitle {
+    z-index: 101 !important;
+    position: absolute;
+    font-family: "Montserrat-Bold";
+    color: #912b3d;
+    top: 1%;
+    left: 10%;
+    font-size: 30px;
+    letter-spacing: 0cm;
+  }
+}
+@media only screen and (max-width: 1000px) {
+  .MapMoved {
+    width: 70% !important;
+    height: 40% !important;
+    margin-top: 0% !important;
+    margin-left: 7% !important;
+    z-index: 11;
+  }
+  .imageFooter {
+    width: 100px;
+  }
+  .footerLine {
+    line-height: 10px;
+    font-family: "Montserrat-Regular";
+    font-size: 8px;
+    font-weight: 300;
+    letter-spacing: 0.2em;
+    color: #2b2b2b !important;
+    text-transform: uppercase;
+    padding: 5px;
+
+    margin-left: 80px;
+  }
+  .headerPanel {
+    position: absolute;
+    width: 100%;
+    height: 40px !important;
+    background: rgb(255, 255, 255);
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.838) 0%,
+      rgba(0, 0, 0, 0) 50%,
+      rgba(0, 0, 0, 0) 100%
+    );
+    z-index: 100 !important;
+    top: 0;
+    left: 0;
+  }
+  .imageHeader {
+    height: 40px;
+    margin-left: 1%;
+    margin-top: 5px;
+  }
+  .footerContainer {
+    display: none;
+    position: fixed;
+    width: 100%;
+    height: 100px !important;
+    z-index: 100 !important;
+    bottom: 0;
+    left: 0;
+    background-color: #dfdfde;
+  }
+  #LoadingScreen {
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    overflow: hidden;
+  }
+
+  #LoadingScreen img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .backgroundMobile {
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    display: block;
+  }
+
+  .backgroundMobile img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  #homebackground {
+    display: none;
+  }
+  .risIeriMobileBtn {
+    display: block;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .centeredImage {
+    width: 100px;
+    height: 100px;
+  }
+  .hiddenButton {
+    top: 50%;
+    left: 50%;
+    width: 30%;
+    height: 30%;
+    z-index: 4 !important;
+  }
+  #IeriBtn {
+    position: absolute;
+    width: 45%;
+    height: 25%;
+    opacity: 0.5;
+    background-color: rgba(255, 255, 255, 0);
+    top: 35%;
+    left: 30%;
+    z-index: 1;
+  }
+  .pageTitle {
+    font-size: 20px;
+    margin-left: 10%;
+  }
+  .pageTitle span {
+    font-size: 15px !important;
+  }
+  #MapBox {
+    /* display:none !important */
+    width: 70%;
+    height: 40%;
+    top: 12% !important;
+    left: 15% !important;
+    z-index: 11;
+  }
+  #myChart {
+    margin-top: 20%;
+    margin-left: 2%;
+    width: 40% !important;
+    height: 40% !important;
+    z-index: 14;
+  }
+  #myChartParent {
+    margin-top: 20%;
+    margin-left: 2%;
+    width: 40% !important;
+    height: 40% !important;
+    z-index: 14;
+  }
+  .sideCopyRegular {
+    font-size: 12px;
+    z-index: 10;
+    font-weight: 600;
+  }
+
+  #ListOfNamesContainer {
+    top: 40% !important;
+    left: 10% !important;
+    display: flex;
+    flex-wrap: wrap;
+    max-height: 200px;
+    width: 90%;
+    overflow-y: auto;
+    z-index: 12 !important;
+  }
+
+  .NameIeriItem {
+    width: 45%;
+    box-sizing: border-box;
+    padding: 5px;
+    border: 1px solid #ccc;
+    z-index: 12 !important;
+
+    font-size: 12px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    color: black;
+    text-align: center;
+    background: #8080804a;
+    padding: 10px;
+    border-radius: 100px;
+    display: inline-block;
+    margin-right: 2%;
+    box-sizing: border-box;
+  }
+  .mobileIeriBackground {
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow-y: auto;
+    display: block;
+  }
+  .mobileIeriBackground img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  #backgroundArrow {
+    display: block;
+    z-index: 5 !important;
+    width: 25% !important;
+    height: 10% !important;
+    position: absolute;
+    bottom: 20%;
+    left: 0%;
+  }
+  #BackBtn {
+    background: transparent !important;
+    z-index: 101 !important;
+    position: absolute;
+    top: 70% !important;
+    height: 10%;
+    left: 0%;
+    width: 20%;
+  }
+  #TitlePersonaggioIERI {
+    font-size: 20px;
+  }
+  .ItemColorLegend {
+    display: inline-block;
+    margin-right: 5px;
+  }
+  .ItemColorLegend div {
+    width: 10px;
+    height: 10px;
+  }
+  .ItemColorLegend p {
+    font-size: 6px;
+  }
+  #ContainerInfoIeri {
+    position: absolute;
+    width: 70%;
+    max-height: 25%;
+    top: 55%;
+    left: 12%;
+    display: none;
+    overflow-y: scroll;
+    z-index: 10;
+    font-family: "Montserrat-Regular";
+    font-size: 8px;
+    line-height: 1;
+    text-align: justify;
+    z-index: 10;
+  }
+  #CentralImgRing {
+    display: none !important;
+  }
+  #TitlePersonaggioIERI {
+    font-family: "Montserrat-Bold";
+    font-size: 12px;
+    line-height: 0.8;
+    position: absolute;
+    top: 7%;
+    left: 50px;
+    z-index: 10;
+    max-width: 300px;
+  }
+  .bodyRings * {
+    position: absolute !important;
+    width: 100px !important;
+    height: 100px !important;
+    left: 0 !important;
+    overflow: hidden !important;
+  }
+  html {
+    overflow: hidden !important;
+  }
+  #FrameRisonanzeIeriRings {
+    position: absolute !important;
+    left: 20% !important;
+    right: 0 !important;
+    margin-left: 10% !important;
+    margin-top: 50% !important;
+  }
+  #ChartContainerB {
+    height: 1000px;
+    box-sizing: border-box;
+    width: 1000px;
+    position: absolute;
+    margin-left: 100px;
+    z-index: 10;
+  }
+  #FrameRisonanzeIeriRings {
+    width: 1000px !important;
+    height: 40% !important;
+    padding: 0px;
+    top: 0;
+    margin-left: 624px;
+    opacity: 0.95;
+  }
+  .textContainer {
+    margin-left: 0;
+  }
+  #LoadingScreen2 {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+  }
+  #LoadingScreen {
+    display: none;
+  }
+  #GetBtn_FromInfoFull {
+    display: none;
+  }
+}

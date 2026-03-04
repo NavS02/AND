@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mappa con Leaflet</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+  <style>
+    #container {
+      height: 82vh;
+      width: 100%;
+      font-family: Arial, sans-serif;
+      position: relative;
+    }
+
+    #map {
+      height: 100%;
+      width: 100%;
+    }
+
+    #markerList {
+      position: absolute;
+      top: 10px;
+      right: 0.25%;
+      max-height: 97%;
+      width: 20%;
+      overflow-y: auto;
+      z-index: 1000;
+      border-radius: 8px;
+      padding: 8px;
+      box-sizing: border-box;
+    }
+
+    .leftCardContainer {
+      position: absolute;
+      top: 10px;
+      left: 0.5%;
+      max-height: 100%;
+      width: 30%;
+      border-radius: 8px;
+      padding: 16px;
+      box-sizing: border-box;
+      overflow-y: auto;
+      z-index: 1000;
+      color: #000;
+      background: rgba(251, 243, 234, 0.9);
+    }
+
+    .card:hover {
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .card {
+      display: flex;
+      align-items: center;
+      background: rgba(251, 243, 234, 0.8);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      border-radius: 8px;
+      padding: 24px;
+      transition: box-shadow 0.3s ease;
+      height: 160px;
+      overflow: hidden;
+      margin-bottom: 20px;
+      cursor: pointer;
+    }
+
+    .card-img {
+      flex-shrink: 0;
+      width: 120px;
+      height: 120px;
+      border-radius: 8px;
+      object-fit: cover;
+      object-position: center center;
+      margin-right: 24px;
+      background: #eee;
+    }
+
+    .card-title {
+      font-weight: bold;
+      font-size: 20px;
+      margin-bottom: 12px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: #000;
+    }
+
+    .card-subtitle {
+      font-size: 16px;
+      color: #333;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    @media (min-width: 1280px) and (max-width: 1920px) {
+      #markerList {
+        width: 25%;
+        right: 0.5%;
+        max-height: 80vh;
+        padding: 10px;
+      }
+
+      .leftCardContainer {
+        width: 28%;
+        left: 0.5%;
+        max-height: 90vh;
+        padding: 14px;
+        background: rgba(251, 243, 234, 0.85);
+      }
+
+      #container {
+        height: 85vh;
+      }
+    }
+
+    @media (max-width: 1024px) {
+      #markerList {
+        width: 30%;
+        top: 10px;
+        right: 0.5%;
+        max-height: 50vh;
+        overflow-y: auto;
+        padding: 8px;
+      }
+
+      .leftCardContainer {
+        width: 35%;
+        top: 10px;
+        left: 0.5%;
+        max-height: 50vh;
+        overflow-y: auto;
+        background: rgba(251, 243, 234, 0.9);
+        padding: 12px;
+      }
+
+      #container {
+        height: 90vh;
+      }
+    }
+
+    @media (max-width: 768px) {
+
+      #markerList,
+      .leftCardContainer {
+        position: static;
+        width: 100%;
+        max-height: none;
+        margin-bottom: 12px;
+        border-radius: 0;
+        box-shadow: none;
+        padding: 12px 8px;
+      }
+
+      #container {
+        display: flex;
+        flex-direction: column;
+        height: auto;
+      }
+
+      #map {
+        height: 50vh;
+        width: 100%;
+      }
+
+      .card {
+        flex-direction: column;
+        height: auto;
+        padding: 16px;
+      }
+
+      .card-img {
+        width: 100%;
+        height: 200px;
+        margin-right: 0;
+        margin-bottom: 12px;
+        border-radius: 8px;
+      }
+
+      .card-title,
+      .card-subtitle {
+        white-space: normal;
+        overflow: visible;
+        text-overflow: unset;
+      }
+    }
+
+    @media (max-width: 480px) {
+      #map {
+        height: 40vh;
+      }
+
+      .card-img {
+        height: 150px;
+      }
+    }
+
+    /* Accordion panel (left) */
+    .accordionContainer {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      z-index: 1200;
+      width: 320px;
+      max-width: 85vw;
+      font-family: Arial, sans-serif;
+    }
+
+    #accordionToggle {
+      width: 100%;
+      background: #2f2a25;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 14px 18px;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: 600;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      letter-spacing: 0.3px;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+      transition: all 0.3s ease;
+    }
+
+    #accordionToggle:hover {
+      background: #463b33;
+      transform: translateY(-1px);
+    }
+
+    #accordionIcon {
+      font-size: 20px;
+      transition: transform 0.3s ease;
+    }
+
+    .accordionContent {
+      margin-top: 10px;
+      background: rgba(251, 243, 234, 0.97);
+      border-radius: 12px;
+      padding: 16px;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.3s ease;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    /* When active */
+    .accordionContent.open {
+      max-height: 400px;
+      padding: 16px;
+    }
+
+    .rotate {
+      transform: rotate(45deg);
+    }
+
+    /* Mobile */
+    @media (max-width: 768px) {
+      .accordionContainer {
+        width: 95%;
+        left: 2.5%;
+      }
+
+      .accordionContent.open {
+        max-height: none;
+      }
+    }
+
+    .accordionContent {
+      margin-top: 10px;
+      background: rgba(251, 243, 234, 0.97);
+      border-radius: 12px;
+      padding: 0;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+      color: #000 !important;
+    }
+
+    .accordionContent.open {
+      max-height: 70vh;
+      padding: 16px;
+      overflow-y: auto;
+    }
+
+    .accordionContent::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .accordionContent::-webkit-scrollbar-thumb {
+      background: #aaa;
+      border-radius: 10px;
+    }
+
+    .accordionContent::-webkit-scrollbar-track {
+      background: transparent;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="container">
+    <div id="map"></div>
+    <div id="markerList"></div>
+    <div class="accordionContainer">
+      <button id="accordionToggle">
+        <span>📍 Legenda</span>
+        <span id="accordionIcon">+</span>
+      </button>
+
+      <div class="accordionContent" id="leftCardContainer">
+        <h3 style="color:black;font-size: 24px;text-align:center;text-decoration: underline;">
+          Le Tracce: luoghi, monumenti e opere d’arte con una memoria linguistica
+        </h3>
+        <p style="text-align: justify;">
+          Le Tracce sono segni tangibili della presenza delle lingue in Europa,
+          conservate in luoghi, monumenti e opere d’arte. Ogni Traccia rappresenta
+          un legame unico tra un oggetto materiale e la sua dimensione immateriale:
+          la storia culturale e linguistica che porta con sé.<br /><br />
+          Attraverso iscrizioni, graffiti, toponimi, leggende, canti e altri
+          elementi, le Tracce documentano la ricchezza e la varietà delle lingue che
+          hanno abitato e continuano a risuonare nei territori europei. Questo
+          patrimonio forma un vero e proprio museo vivente, il “Diffuseum”.<br /><br />
+          Studiare le Tracce significa comprendere la storia, la memoria e il valore
+          simbolico dei luoghi.<br /><br />
+          <strong>Esplora la mappa e scopri le Tracce nel territorio europeo.</strong>
+        </p>
+      </div>
+    </div>
+
+  </div>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  <script>
+    const map = L.map("map", {
+      center: [54, 15],
+      zoom: 4.25,
+      minZoom: 4,
+      maxZoom: 18,
+      maxBounds: [
+        [34.5, -11.0],
+        [71.0, 40.0],
+      ],
+      maxBoundsViscosity: 1.0,
+      zoomControl: false,
+    });
+    L.tileLayer(
+      "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+      { maxZoom: 18 }
+    ).addTo(map);
+    const markers = [];
+    const imgBaseUrl =
+      "https://www.directuseurotales.ambientinarratividigitali.it/assets/";
+    fetch(
+      "https://www.directuseurotales.ambientinarratividigitali.it/items/tracce/?limit=-1&fields=titolo,img_cover,luogo.*,id&filter[stato_traccia][_eq]=4"
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        if (!Array.isArray(data.data)) return;
+        data.data.forEach((item) => {
+          const luogo = item.luogo;
+          if (luogo?.mappa?.coordinates) {
+            const [lng, lat] = luogo.mappa.coordinates;
+            const marker = L.marker([lat, lng]).addTo(map);
+            marker.bindPopup(
+              `<strong>${item.titolo}</strong><br>${luogo.citta || ""}, ${luogo.via || ""
+              }`
+            );
+            markers.push({
+              marker,
+              title: item.titolo,
+              city: luogo.citta || "",
+              address: luogo.via || "",
+              img: item.img_cover ? imgBaseUrl + item.img_cover : null,
+              id: item.id,
+            });
+          }
+        });
+        updateVisibleMarkers();
+        map.on("moveend zoomend", updateVisibleMarkers);
+      });
+    function updateVisibleMarkers() {
+      const bounds = map.getBounds();
+      const list = document.getElementById("markerList");
+      list.innerHTML = "";
+      const visible = markers.filter(({ marker }) =>
+        bounds.contains(marker.getLatLng())
+      );
+      if (!visible.length) {
+        list.innerHTML = "<p style='text-align:center; color:#555;'></p>";
+        return;
+      }
+      visible.forEach(({ title, city, address, img, id }) => {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.addEventListener("click", () => {
+          window.location.href = `https://eurotales.eu/scheda/?id=${id}`;
+        });
+        if (img) {
+          const image = document.createElement("img");
+          image.src = img;
+          image.alt = title;
+          image.className = "card-img";
+          card.appendChild(image);
+        } else {
+          const placeholder = document.createElement("div");
+          placeholder.className = "card-img";
+          card.appendChild(placeholder);
+        }
+        const content = document.createElement("div");
+        content.className = "card-content";
+        const titleEl = document.createElement("div");
+        titleEl.className = "card-title";
+        titleEl.textContent = title;
+        const subtitle = document.createElement("div");
+        subtitle.className = "card-subtitle";
+        subtitle.textContent = city + (address ? ", " + address : "");
+        content.appendChild(titleEl);
+        content.appendChild(subtitle);
+        card.appendChild(content);
+        list.appendChild(card);
+      });
+    }
+    const accordionToggle = document.getElementById("accordionToggle");
+    const accordionContent = document.getElementById("leftCardContainer");
+    const accordionIcon = document.getElementById("accordionIcon");
+
+    accordionToggle.addEventListener("click", () => {
+      accordionContent.classList.toggle("open");
+      accordionIcon.classList.toggle("rotate");
+    });
+
+
+  </script>
+</body>
+
+</html>

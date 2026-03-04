@@ -1,0 +1,155 @@
+body
+{
+    width: 1920px;
+    height: 1808px;
+    overflow: hidden;
+    background-color: rgb(201, 201, 201);
+}
+
+/*HOME*/
+#homebackground
+{
+    width:1920px;
+    height: 1080px;
+    position: absolute;
+    top:0;
+    left:0;
+}
+.hiddenButton
+{
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    opacity: 0.5;
+   
+}
+#IeriBtn
+{
+    position: absolute;
+    width: 492px;
+    height: 465px;
+    opacity: 0.5;
+    background-color: rgba(255, 255, 255, 0);
+    top: 310px;
+    left: 234px;
+    z-index: 1;
+}
+#OggiBtn
+{
+    position: absolute;
+    width: 492px;
+    height: 465px;
+    opacity: 0.5;
+    background-color: rgba(255, 255, 255, 0);
+    top: 310px;
+    left: 1200px;
+    z-index: 1;
+}
+
+
+
+/*HomeRisonanze OGGI*/
+#BackBtn
+{
+    background: transparent!important;
+    z-index: 1;
+    position: absolute;
+    top: 800px;
+    height: 213px;
+    left: 37px;
+    width: 347px;
+}
+
+#backgroundStatic_OGGI
+{
+    width:1920px;
+    height: 1080px;
+    position: absolute;
+    margin-top: 0px;
+    margin-left: 0px;
+    z-index: 0;
+}
+
+/*???*/
+#ChartContainer
+{
+    height: 445px;
+    display: block;
+    box-sizing: border-box;
+    width: 445px;
+    position: absolute;
+    left: 459px;
+    top: 288px;
+   
+}
+
+/*Page B Risonanze OGGI*/
+
+.HelperBtns
+{
+    position: absolute;
+    z-index: 6;
+    background-color: rgba(255, 255, 255, 0);
+    width: 200px;
+    height: 100px;
+    margin-top: 803px;
+    margin-left: 637px;
+    display: none;
+}
+#ChartContainerB
+{
+    height: 900px;
+    display: block;
+    box-sizing: border-box;
+    width: 900px;
+    position: absolute;
+    left: 239px;
+    top: 42px;
+    z-index: 1;
+}
+
+
+#ChartContainer_Parent
+{
+    display: none;
+    box-sizing: border-box;
+    position: absolute;
+   /* background-color: rgba(255, 0, 0, 0.24);
+   */ z-index: 4;
+
+    height: 750px;
+    width: 750px;
+    margin-top: 126px;
+    margin-left: 1142px;
+}
+
+#ChartContainerInitial
+{
+    display: block;
+    box-sizing: border-box;
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0);
+    z-index: 4;
+
+    height: 550px;
+    width: 550px;
+    margin-top: 229px;
+    margin-left: 384px;
+}
+
+#MapBox
+{
+    background-color: 'transparent';
+    height: 736px;
+    width: 879px;
+    position: absolute;
+    z-index: 2;
+    display: none;
+    left: 987px;
+}
+
+.MapMoved
+{
+    left: 275px!important;
+    top: 83px!important;
+}

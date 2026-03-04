@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="334.81" height="593.97" viewBox="0 0 334.81 593.97">
+  <g id="Layer_2" data-name="Layer 2">
+    <g id="Layout">
+      <g>
+        <path d="M168.28,499.91l15.39,2.57a5.51,5.51,0,0,1,4.56,5.41V522.7a7.67,7.67,0,0,1-7.7,7.7H165.72a7.8,7.8,0,0,1-5.41-2.28l-13.39-13.39a.94.94,0,0,1,0-1.43l3.13-2.56a4.36,4.36,0,0,1,4.84-.57l4.85,2.56V485.38c0-4.55,8.54-4.55,8.54,0v14.53Z" fill="#2b917f" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" fill-rule="evenodd"/>
+        <text transform="translate(57.45 559.54)" font-size="20" font-family="Montserrat-BoldItalic, Montserrat" font-weight="700" font-style="italic"><tspan letter-spacing="-0.05em">T</tspan><tspan x="11.26" y="0">o</tspan><tspan x="24.34" y="0" letter-spacing="-0.01em">cc</tspan><tspan x="47.7" y="0" letter-spacing="0em">a per espa</tspan><tspan x="158.58" y="0" letter-spacing="0.01em">n</tspan><tspan x="172.52" y="0">de</tspan><tspan x="198.92" y="0" letter-spacing="-0.01em">r</tspan><tspan x="207.36" y="0">e</tspan><tspan x="45.86" y="24">i dati mi</tspan><tspan x="132.5" y="24" letter-spacing="0.01em">n</tspan><tspan x="146.44" y="24">o</tspan><tspan x="159.52" y="24" letter-spacing="0em">r</tspan><tspan x="168.06" y="24">i</tspan></text>
+        <rect x="53.99" y="0.37" width="226.83" height="466" rx="113.41" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="0.75"/>
+      </g>
+    </g>
+  </g>
+</svg>

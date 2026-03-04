@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Item Details</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"
+    rel="stylesheet" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <style>
+    /* General container styling */
+    .container {
+      display: flex;
+      max-width: 100%;
+      width: 100%;
+      line-height: 1.2;
+      gap: 20px;
+    }
+
+    /* Styling for the image section */
+    .image-section {
+      flex: 60%;
+      padding: 20px;
+      border-radius: 10px;
+      color: black;
+      text-align: center;
+    }
+
+    .image-section img {
+      max-width: 100%;
+      height: auto;
+      object-fit: cover;
+      border-radius: 5px;
+    }
+
+    /* Styling for the details section */
+    .details-section {
+      flex: 40%;
+      padding: 20px;
+      border-radius: 10px;
+      color: black;
+    }
+
+    .container2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      align-items: start;
+      width: 100%;
+    }
+
+    .tags {
+      margin-top: 10px;
+      font-family: "Rubik", serif;
+      font-optical-sizing: auto;
+      font-weight: 400;
+      font-size: 14px;
+      color: gray;
+      font-style: normal;
+      border-top: 1px solid #ccc;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 10px;
+      display: block;
+    }
+
+    .lingue {
+      margin-top: 10px;
+      font-family: "Rubik", serif;
+      font-optical-sizing: auto;
+      font-weight: 400;
+      font-size: 14px;
+      color: gray;
+      font-style: normal;
+      padding-bottom: 10px;
+      display: block;
+    }
+
+    .tags span:hover {
+      color: burlywood;
+      text-decoration: underline;
+    }
+
+    .lingue span:hover {
+      color: burlywood;
+      text-decoration: underline;
+    }
+
+    .item-title {
+      font-size: 24px;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+
+    .item-info {
+      margin-top: 15px;
+      font-size: 18px;
+      text-align: justify;
+    }
+
+    .item-info p {
+      margin-top: 15px;
+      font-size: 18px;
+      text-align: justify;
+      line-height: 1.5 !important;
+    }
+
+    .appro-info * {
+      margin-top: 15px;
+      font-size: 14px !important;
+      text-align: justify;
+    }
+
+    .item-info span {
+      /* font-weight: bold; */
+      font-size: 16px;
+    }
+
+    /* Map container styling */
+    #map {
+      width: 100%;
+      height: 300px;
+      margin-top: 20px;
+      border-radius: 5px;
+    }
+
+    /* Back link button styling */
+    .back-link {
+      display: none;
+      margin-top: 20px;
+      text-align: center;
+      text-decoration: none;
+      color: #333;
+      font-size: 16px;
+      border: 1px solid #333;
+      padding: 10px 20px;
+      border-radius: 5px;
+      background-color: transparent;
+      width: 100%;
+    }
+
+    .back-link:hover {
+      background-color: #dbd3c8;
+      cursor: pointer;
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 0px !important;
+      margin-bottom: 10px !important;
+      color: black;
+      font-size: 30px !important;
+    }
+
+    p * {
+      line-height: 1.5 !important;
+    }
+
+    .accordion-item {
+      margin-bottom: 10px;
+      border-bottom: 1px solid #ccc;
+      padding: 10px;
+    }
+
+    .accordion-header {
+      background-color: transparent;
+      border: none;
+      padding: 10px;
+      text-align: left;
+      font-size: 18px;
+      cursor: pointer;
+      color: #333;
+      font-weight: bold;
+      display: inline-block;
+      width: calc(100% - 30px);
+      /* Adjust to make room for arrow */
+    }
+
+    .accordion-title-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .accordion-arrow {
+      font-size: 18px;
+      margin-left: 10px;
+    }
+
+    .accordion-header:hover {
+      color: burlywood;
+    }
+
+    .accordion-content {
+      padding: 10px;
+      display: none;
+      /* Initially hidden */
+      border-top: 1px solid #ccc;
+    }
+
+    .accordion-content p {
+      margin: 0;
+    }
+
+    .accordion-content p a {
+      color: black;
+      text-decoration: underline;
+    }
+
+    .accordion-underline {
+      border: none;
+      height: 1px;
+      background-color: #ccc;
+      margin: 0;
+      width: 100%;
+    }
+
+    hr {
+      color: gray !important;
+      height: 1px;
+      width: 100%;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    &nbsp;
+    <a href="#" onclick="event.preventDefault(); history.back();" style="
+      background-color: #dbb971 !important;
+      font-family: 'Roboto', Sans-serif;
+      font-size: 28px;
+      font-weight: 500;
+      text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+      border-radius: 10px 10px 10px 10px;
+      display: inline-block;
+      padding: 10px 20px;
+      text-decoration: none;
+    ">
+      <span style="
+        display: flex;
+        justify-content: center;
+        flex-direction: row;
+        gap: 5px;
+      ">
+        Ritorna alle tracce
+      </span>
+    </a>
+  </div>
+
+  <div class="container">
+    <br />
+    <div style="width: 100%; text-align: center" id="titleInfo"></div>
+    <!-- Image Section -->
+  </div>
+  <div class="container">
+    <br />
+    <!-- Image Section -->
+    <div class="image-section">
+      <div id="image-container"></div>
+      <div id="description-container" style="line-height: 1.2 !important"></div>
+    </div>
+
+    <!-- Details Section -->
+    <div class="details-section">
+      <div id="details-container"></div>
+      <!-- Map container -->
+      <div id="map"></div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+      const urlParams = new URLSearchParams(window.location.search);
+      const itemId = urlParams.get("id");
+      var lingueArray = [];
+      var luogoFinal;
+      var tipologia = null;
+      const lingueSet = new Set(lingueArray);
+      if (itemId) {
+        // Fetch the item details
+        fetch(
+          `https://www.directuseurotales.ambientinarratividigitali.it/items/tracce/${itemId}?fields=*.*.*`
+        )
+          .then((response) => response.json())
+          .then((itemData) => {
+            if (itemData.data) {
+              const item = itemData.data;
+              const luogoId = item.luogo?.id;
+
+              fetch(
+                `https://www.directuseurotales.ambientinarratividigitali.it/items/tracce_tags?limit=-1`
+              )
+                .then((response) => response.json())
+                .then((tracceTagsData) => {
+                  const tagIds = tracceTagsData.data
+                    .filter(
+                      (relation) => relation.tracce_id === parseInt(itemId)
+                    )
+                    .map((relation) => relation.tags_id);
+                  // Fetch tags details based on the IDs
+                  if (tagIds.length > 0) {
+                    fetch(
+                      `https://www.directuseurotales.ambientinarratividigitali.it/items/tags?limit=-1`
+                    )
+                      .then((response) => response.json())
+                      .then((tagsData) => {
+                        const relatedTags = tagsData.data.filter((tag) =>
+                          tagIds.includes(tag.id)
+                        );
+
+                        // Add the tags to the item object
+                        item.tags = relatedTags;
+
+                        // Render the tags in the UI
+                      })
+                      .catch((error) =>
+                        console.error("Error fetching tags:", error)
+                      );
+                  } else {
+                    item.tags = [];
+                  }
+                });
+
+              // Fetch luogo details
+              fetch(
+                `https://www.directuseurotales.ambientinarratividigitali.it/items/luogo/${luogoId}`
+              )
+                .then((response) => response.json())
+                .then((luogoData) => {
+                  const luogo = luogoData.data;
+
+                  if (luogo && luogo.mappa) {
+                    item.map = luogo.mappa;
+                  }
+
+                  const nazioneId = luogo ? luogo.nazione : null;
+
+                  if (nazioneId) {
+                    // Fetch nazione details
+                    fetch(
+                      `https://www.directuseurotales.ambientinarratividigitali.it/items/nazioni_tracce/${nazioneId}`
+                    )
+                      .then((response) => response.json())
+                      .then((nazioneData) => {
+                        // Now fetch the icon for the item
+                        fetch(
+                          `https://www.directuseurotales.ambientinarratividigitali.it/files/${item.img_cover.id}`
+                        )
+                          .then((response) => response.json())
+                          .then((imageData) => {
+                            // Add the image data to the item object
+                            item.myimage = imageData.data.title;
+
+                            // After getting all data, render the item details
+                            renderItemDetails(item, luogo, nazioneData.data);
+                          })
+                          .catch((error) =>
+                            console.error("Error fetching image:", error)
+                          );
+                      })
+                      .catch((error) =>
+                        console.error(
+                          "Error fetching nazione details:",
+                          error
+                        )
+                      );
+                  } else {
+                    // If no nazione, render item details without it
+                    renderItemDetails(item, luogo, null);
+                  }
+                });
+            }
+          })
+          .catch((error) =>
+            console.error("Error fetching item details:", error)
+          );
+      } else {
+        console.error("Item ID not found in the URL.");
+      }
+      function generateDirezione(luogo) {
+        let parts = [];
+
+        if (luogo.Edificio) parts.push(luogo.Edificio);
+
+        let viaCompleta = "";
+        if (luogo.via) viaCompleta += luogo.via;
+        if (luogo.numero_civico) viaCompleta += ` ${luogo.numero_civico}`;
+        if (viaCompleta) parts.push(viaCompleta.trim());
+
+        if (luogo.citta) parts.push(luogo.citta);
+
+        let result = parts.join(", ");
+
+        if (luogo.nazione) result += ` (${luogo.nazione})`;
+
+        return result.trim();
+      }
+
+      function renderItemDetails(item, luogo, nazione) {
+        const detailsContainer = document.getElementById("details-container");
+        const titleInfo = document.getElementById("titleInfo");
+        const imageContainer = document.getElementById("image-container");
+        const descriptionContainer = document.getElementById(
+          "description-container"
+        );
+        // Add item title
+        const title = document.createElement("h1");
+        title.className = "item-title";
+        title.textContent = item.titolo;
+        titleInfo.appendChild(title);
+        // Add Iscrizione in cursivo before description
+        const iscrizione = document.createElement("div");
+        iscrizione.className = "item-info";
+        const tagsContainer = document.createElement("div");
+        tagsContainer.className = "tags";
+        tagsContainer.innerHTML = `<br><hr style="color:black !important">${item.tags.length > 0
+          ? item.tags
+            .map(
+              (tag) =>
+                `<a href="https://eurotales.eu/tracce-tag/?tag=${tag.id
+                }"class="tag" style="  color:gray !important;
+"><span  style="text-transform: uppercase;" title="${tag.tag_inglese || ""}">${tag.tag
+                }</span></a><br>`
+            )
+            .join("")
+          : "No tags available"
+          }`;
+
+        const detailsSection = document.querySelector(".details-section");
+
+        if (detailsSection) {
+          detailsSection.appendChild(tagsContainer);
+        } else {
+          console.error("");
+        }
+
+        const autoreData = document.createElement("div");
+        autoreData.className = "item-info";
+
+        function formatDate(dateString) {
+          const date = new Date(dateString);
+          const options = { year: "numeric", month: "long", day: "numeric" };
+          return date.toLocaleDateString("it-IT", options);
+        }
+
+        let myData = "<br>";
+
+        if (item.autore_scheda) {
+          myData += `<span style="font-size:14px"><strong>Autore Scheda:</strong> ${item.autore_scheda}</span><br>`;
+        }
+
+        if (item.autore_traduzione) {
+          myData += `<span style="font-size:14px"><strong>Autore Traduzione:</strong> ${item.autore_traduzione}</span><br>`;
+        }
+
+        if (item.data_pubblicazione) {
+          const formattedDate = formatDate(item.data_pubblicazione);
+          myData += `<span style="font-size:14px"><strong>Data Pubblicazione:</strong> ${formattedDate}</span><br>`;
+        }
+
+        autoreData.innerHTML = myData;
+
+        if (detailsSection) {
+          detailsSection.appendChild(autoreData);
+        } else {
+          console.error("");
+        }
+
+        fetch(
+          `https://www.directuseurotales.ambientinarratividigitali.it/items/iscrizione?limit=-1`
+        )
+          .then((response) => response.json())
+          .then((iscrizioneData) => {
+            // Fetch all the tracce_iscrizione relations without filter
+            fetch(
+              `https://www.directuseurotales.ambientinarratividigitali.it/items/tracce_iscrizione?limit=-1`
+            )
+              .then((response) => response.json())
+              .then((tracceIscrizioneData) => {
+                // Get the 'iscrizione_id' from the relations
+                const iscrizioneIds = tracceIscrizioneData.data
+                  .filter((relation) => relation.tracce_id == itemId)
+                  .map((relation) => relation.iscrizione_id);
+
+                // Filter the iscrizione data based on the iscrizione_ids we fetched
+                const filteredIscrizioni = iscrizioneData.data.filter(
+                  (iscrizioneItem) =>
+                    iscrizioneIds.includes(iscrizioneItem.id)
+                );
+                console.log(iscrizioneIds)
+                console.log(iscrizioneData)
+                if (filteredIscrizioni.length > 0) {
+                  console.log('tests')
+
+                  iscrizione.innerHTML = "";
+
+                  filteredIscrizioni.forEach((iscrizioneItem) => {
+                    // Create the accordion container for each iscrizioneItem
+                    const accordionContainer = document.createElement("div");
+                    accordionContainer.classList.add("accordion-item");
+
+                    // Create the button for the title
+                    const titoloElement = document.createElement("button");
+                    titoloElement.classList.add("accordion-header");
+                    titoloElement.textContent = "Traccia";
+
+                    // Create the arrow icon
+                    const arrowIcon = document.createElement("span");
+                    arrowIcon.classList.add("accordion-arrow");
+                    arrowIcon.textContent = "▼"; // Down arrow
+
+                    // Create the hr element for the underline
+                    const underline = document.createElement("hr");
+                    underline.classList.add("accordion-underline");
+
+                    // Make the accordion open/close when clicked
+
+                    const titoloContainer = document.createElement("div");
+                    titoloContainer.classList.add(
+                      "accordion-title-container"
+                    );
+                    titoloContainer.appendChild(titoloElement);
+                    titoloContainer.appendChild(arrowIcon);
+
+                    const testoElement = document.createElement("div");
+                    testoElement.classList.add("accordion-content");
+                    testoElement.style.display = "block"; // Initially hidden
+                    testoElement.innerHTML = `<p>${iscrizioneItem.testo}</p><br>`;
+                    if (iscrizioneItem.traduzione_italiana !== null) {
+                      testoElement.innerHTML += `<p><strong>Traduzione Italiana:</strong><br>${iscrizioneItem.traduzione_italiana}</p><br>`;
+                    }
+                    if (iscrizioneItem.data_iscrizione !== null) {
+                      testoElement.innerHTML += `<p><strong>Data: </strong> ${iscrizioneItem.data_iscrizione}</p><br>`;
+                    }
+                    var isOpen = false;
+
+                    titoloElement.onclick = function () {
+                      isOpen = !isOpen;
+                      const content = this.nextElementSibling;
+                      content.style.display = isOpen ? "block" : "block"; // Toggle visibility
+                      arrowIcon.textContent = isOpen ? "▼" : "▲";
+                      testoElement.style.display = isOpen ? "none" : "block";
+                    };
+                    // Fetch related systems (sistemi_scrittori)
+
+                    fetch(
+                      `https://www.directuseurotales.ambientinarratividigitali.it/items/iscrizione_sistemi_scrittori?limit=-1`
+                    )
+                      .then((response) => response.json())
+                      .then((mappingData) => {
+                        const sistemiIds = mappingData.data
+                          .filter(
+                            (mapping) =>
+                              mapping.iscrizione_id === iscrizioneItem.id
+                          )
+                          .map((mapping) => mapping.sistemi_scrittori_id);
+
+                        iscrizioneItem.sistemi_scrittori = sistemiIds;
+
+                        fetch(
+                          `https://www.directuseurotales.ambientinarratividigitali.it/items/sistemi_scrittori?limit=-1`
+                        )
+                          .then((response) => response.json())
+                          .then((sistemiData) => {
+                            const sistemiNomi = item.sistemi_scrittori.map(
+                              (sistema) =>
+                                sistema.sistemi_scrittori_id.sistemi_scrittori
+                            );
+
+                            if (sistemiNomi && sistemiNomi.length > 0) {
+                              const sistemiElement =
+                                document.createElement("p");
+                              sistemiElement.innerHTML = `<strong>Sistemi Scrittori:</strong> ${sistemiNomi.join(
+                                ", "
+                              )}`;
+                              testoElement.appendChild(sistemiElement);
+                            }
+                          });
+                      });
+
+                    // Fetch related writings (scritture)
+                    fetch(
+                      `https://www.directuseurotales.ambientinarratividigitali.it/items/iscrizione_scritture?limit=-1`
+                    )
+                      .then((response) => response.json())
+                      .then((mappingData) => {
+                        const scrittureIds = mappingData.data
+                          .filter(
+                            (mapping) =>
+                              mapping.iscrizione_id === iscrizioneItem.id
+                          )
+                          .map((mapping) => mapping.scritture_id);
+
+                        iscrizioneItem.scritture = scrittureIds;
+
+                        fetch(
+                          `https://www.directuseurotales.ambientinarratividigitali.it/items/scritture?limit=-1`
+                        )
+                          .then((response) => response.json())
+                          .then((scrittureData) => {
+                            const scrittureNomi = item.scrittura.map(
+                              (scrittura) => scrittura.scritture_id.scritture
+                            );
+                            if (scrittureNomi && scrittureNomi.length > 0) {
+                              const scrittureElement =
+                                document.createElement("p");
+                              scrittureElement.innerHTML = `<strong>Scritture:</strong> ${scrittureNomi.join(
+                                ", "
+                              )}`;
+                              testoElement.appendChild(scrittureElement);
+                            }
+
+                            fetch(
+                              `https://www.directuseurotales.ambientinarratividigitali.it/items/iscrizione_lingue?limit=-1`
+                            )
+                              .then((response) => response.json())
+                              .then((lingueData) => {
+
+                                const lingueIds = lingueData.data
+                                  .filter(
+                                    (lingua) =>
+                                      lingua.iscrizione_id ==
+                                      iscrizioneItem.id
+                                  )
+                                  .map((lingua) => lingua.lingue_id);
+
+                                if (lingueIds && lingueIds.length > 0) {
+                                  fetch(`https://www.directuseurotales.ambientinarratividigitali.it/items/lingue?limit=-1`)
+                                    .then(response => response.json())
+                                    .then(lingueFullData => {
+                                      const lingueNomi = lingueFullData.data
+                                        .filter(l => lingueIds.includes(l.id))
+                                        .map(l => l.lingua);
+                                      if (lingueNomi.length > 0) {
+                                        const lingueElement = document.createElement("p");
+                                        console.log('lingueNomi')
+                                        lingueArray = Array.from(new Set([...lingueArray, ...lingueNomi]));
+
+
+                                        lingueElement.innerHTML = `<strong>Lingue:</strong> ${lingueNomi.join(", ")}`;
+                                        testoElement.appendChild(lingueElement);
+                                      }
+                                    });
+
+                                }
+
+                              });
+                          });
+                      });
+
+                    // Append the button (title), underline and content (text) to the accordion container
+                    accordionContainer.appendChild(titoloContainer);
+                    accordionContainer.appendChild(underline);
+                    accordionContainer.appendChild(testoElement);
+                    iscrizione.appendChild(accordionContainer);
+                  });
+
+                  descriptionContainer.insertBefore(
+                    iscrizione,
+                    descriptionContainer.firstChild
+                  );
+                }
+              });
+          });
+
+        // Add image
+        const img = document.createElement("img");
+        img.src = `https://www.directuseurotales.ambientinarratividigitali.it/assets/${item.img_cover.id}`;
+        img.alt = item.titolo;
+        imageContainer.appendChild(img);
+
+        // Add description
+        const description = document.createElement("div");
+        description.className = "item-info";
+
+        // Information (Luogo, Data, Tipologia, etc.)
+        const infoContainer = document.createElement("div");
+        infoContainer.className = "item-info";
+
+        // Format the location (city, country)
+        const cityCountry =
+          (luogo && luogo.citta ? `${luogo.citta}` : "") +
+          (luogo && luogo.citta && nazione && nazione.nazione
+            ? ` (${nazione.nazione})`
+            : nazione && nazione.nazione
+              ? `${nazione.nazione}`
+              : "");
+        luogo.nazione = nazione.nazione;
+        luogoFinal = luogo;
+        // Fetch the typology
+        fetch(
+          `https://www.directuseurotales.ambientinarratividigitali.it/items/tipologia?limit=-1`
+        )
+          .then((response) => response.json())
+          .then((tipologiaData) => {
+            tipologia = tipologiaData.data.find(
+              (t) => t.id === item.tipologia
+            );
+            if (tipologia) {
+            }
+          })
+          .catch((error) =>
+            console.error("Error fetching tipologia:", error)
+          );
+        // Fetch the related languages
+        fetch(
+          `https://www.directuseurotales.ambientinarratividigitali.it/items/tracce_lingue_3?limit=-1`
+        )
+          .then((response) => response.json())
+          .then((tracceLingueData) => {
+            // Get all related language IDs for this item
+            const relatedLingueIds = tracceLingueData.data
+              .filter((relation) => relation.tracce_id == item.id)
+              .map((relation) => relation.lingue_id);
+
+            if (relatedLingueIds.length > 0) {
+         fetch(`https://www.directuseurotales.ambientinarratividigitali.it/items/lingue?limit=-1`)
+  .then(response => response.json())
+  .then(lingueFullData => {
+   const lingueNomi = lingueFullData.data
+  .filter(l => relatedLingueIds.includes(l.id))
+  .map(l => l.lingua);
+
+
+    if (lingueNomi.length > 0) {
+      lingueArray = Array.from(new Set([...lingueArray, ...lingueNomi]));
+
+      const lingueElement = document.createElement("p");
+      lingueElement.innerHTML = `<strong>Lingue:</strong> ${lingueNomi.join(", ")}`;
+      testoElement.appendChild(lingueElement);
+    }
+  });
+
+            }
+          })
+          .catch((error) =>
+            console.error("Error fetching language relations:", error)
+          );
+        let tableRows = "";
+        setTimeout(() => {
+          if (cityCountry) {
+            tableRows += `
+    <tr style="border: none;">
+      <td style="padding: 5px; border: none;"><strong>Luogo:</strong></td>
+      <td style="padding: 5px; border: none;font-size:16px;">${cityCountry}</td>
+    </tr>`;
+          }
+
+          if (item.data) {
+            tableRows += `
+    <tr style="border: none;">
+      <td style="padding: 5px; border: none;"><strong>Data:</strong></td>
+      <td style="padding: 5px; border: none;font-size:16px;">${item.data}</td>
+    </tr>`;
+          }
+
+          if (tipologia && tipologia.tipologia) {
+            tableRows += `
+    <tr style="border: none;">
+      <td style="padding: 5px; border: none;"><strong>Tipologia:</strong></td>
+      <td style="padding: 5px; border: none;font-size:16px;">${tipologia.tipologia}</td>
+    </tr>`;
+          }
+
+          tableRows += `
+      <tr style="border: none;">
+        <td style="padding: 5px; border: none;"><strong>Lingue:</strong></td>
+        <td style="padding: 5px; border: none; font-size:16px;" id="lingueTable">${lingueArray.join(
+            ", "
+          )}</td>
+      </tr>`;
+
+          if (item.misure) {
+            tableRows += `
+    <tr style="border: none;">
+      <td style="padding: 5px; border: none;"><strong>Misure:</strong></td>
+      <td style="padding: 5px; border: none;font-size:16px;">${item.misure}</td>
+    </tr>`;
+          }
+
+          if (item.materia) {
+            tableRows += `
+    <tr style="border: none;">
+      <td style="padding: 5px; border: none;"><strong>Materia:</strong></td>
+      <td style="padding: 5px; border: none;font-size:16px;">${item.materia}</td>
+    </tr>`;
+          }
+
+          if (item.conservazione) {
+            tableRows += `
+    <tr style="border: none;">
+      <td style="padding: 5px; border: none;"><strong>Conservazione:</strong></td>
+      <td style="padding: 5px; border: none;font-size:16px;">${item.conservazione}</td>
+    </tr>`;
+          }
+          if (item.n_inventario) {
+            tableRows += `
+    <tr style="border: none;">
+      <td style="padding: 5px; border: none;"><strong>Inventario:</strong></td>
+      <td style="padding: 5px; border: none;font-size:16px;">${item.n_inventario}</td>
+    </tr>`;
+          }
+
+          infoContainer.innerHTML = `
+        
+        
+  <table style="border-collapse: collapse; width: 100%; border: none;background-color: #DBD3C8;border-radius: 10px;">
+    ${tableRows}
+  </table>
+`;
+          const tagsContainer2 = document.querySelector(".tags");
+
+          tagsContainer2.innerHTML += `
+          <br>
+          ${lingueArray.length > 0
+              ? lingueArray
+                .map(
+                  (
+                    lingua
+                  ) => `<hr style="background-color:#ccc;height:1px !important;width:100%;max-width:100%"><div class="lingue">
+                    <a href="https://eurotales.eu/lingue/?lingua=${encodeURIComponent(
+                    lingua
+                  )}" 
+                       class="lingua" 
+                       style="color:gray !important;">
+                      <span style="text-transform: uppercase;" title="${lingua}">${lingua}</span>
+                    </a><br>
+                    </div>`
+                )
+                .join("")
+              : ""
+            }
+        `;
+          detailsContainer.appendChild(infoContainer);
+        }, 2000);
+        
+
+        // Add Leaflet map if available
+        if (item.map && item.map.type === "Point") {
+          const [lng, lat] = item.map.coordinates;
+
+          const map = L.map("map").setView([lat, lng], 14);
+
+          L.tileLayer(
+            "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+            {
+              maxZoom: 18,
+              minZoom: 4,
+              attribution: "",
+            }
+          ).addTo(map);
+
+          L.marker([lat, lng]).addTo(map).openPopup();
+          let myString = generateDirezione(luogoFinal);
+
+          const mapDiv = document.getElementById("map");
+
+          const newDiv = document.createElement("div");
+
+          newDiv.innerHTML =
+            '<br><span style="font-size:14px;font-weight:bold;margin-top:8px">' +
+            myString +
+            "</span>";
+
+          mapDiv.insertAdjacentElement("afterend", newDiv);
+
+        }
+        const accordionContainer = document.createElement("div");
+        accordionContainer.classList.add("accordion-item");
+
+        const titoloElement = document.createElement("button");
+        titoloElement.classList.add("accordion-header");
+        titoloElement.textContent = "Descrizione";
+
+        const arrowIcon = document.createElement("span");
+        arrowIcon.classList.add("accordion-arrow");
+        arrowIcon.textContent = "▼";
+
+        const underline = document.createElement("hr");
+        underline.classList.add("accordion-underline");
+
+        const titoloContainer = document.createElement("div");
+        titoloContainer.classList.add("accordion-title-container");
+        titoloContainer.appendChild(titoloElement);
+        titoloContainer.appendChild(arrowIcon);
+
+        const testoElement = document.createElement("div");
+        testoElement.classList.add("accordion-content");
+        testoElement.style.display = "none";
+        testoElement.style.textAlign = "justify";
+        testoElement.innerHTML = `<p>${item.descrizione || ""}</p>`;
+
+        const showDetailsButton = document.createElement("button");
+        showDetailsButton.classList.add("back-link");
+        showDetailsButton.textContent = "APPROFONDIMENTO";
+        showDetailsButton.style.display = "none";
+
+        let detailsVisible = false;
+        let approfondimentoContainer;
+
+        showDetailsButton.addEventListener("click", function () {
+          if (detailsVisible) {
+            approfondimentoContainer.style.display = "none";
+            showDetailsButton.textContent = "APPROFONDIMENTO";
+            detailsVisible = false;
+          } else {
+            approfondimentoContainer = document.createElement("div");
+            approfondimentoContainer.className = "item-info";
+            approfondimentoContainer.innerHTML = `<div class="appro-info">${item.approfondimento || "No additional details."
+              }</div>`;
+            testoElement.appendChild(approfondimentoContainer);
+            showDetailsButton.textContent = "CHIUDI APPROFONDIMENTO";
+            detailsVisible = true;
+          }
+        });
+
+        titoloElement.onclick = function () {
+          const isOpen = testoElement.style.display === "block";
+          testoElement.style.display = isOpen ? "none" : "block";
+          arrowIcon.textContent = isOpen ? "▼" : "▲";
+
+          showDetailsButton.style.display = isOpen ? "none" : "block";
+        };
+
+        accordionContainer.appendChild(titoloContainer);
+        accordionContainer.appendChild(underline);
+        accordionContainer.appendChild(testoElement);
+        accordionContainer.appendChild(showDetailsButton);
+
+        descriptionContainer.appendChild(accordionContainer);
+
+        const bibliografiaAccordion = document.createElement("div");
+        bibliografiaAccordion.classList.add("accordion-item");
+
+        const bibliografiaTitle = document.createElement("button");
+        bibliografiaTitle.classList.add("accordion-header");
+        bibliografiaTitle.textContent = "Bibliografia";
+
+        const bibliografiaArrow = document.createElement("span");
+        bibliografiaArrow.classList.add("accordion-arrow");
+        bibliografiaArrow.textContent = "▼";
+
+        const bibliografiaUnderline = document.createElement("hr");
+        bibliografiaUnderline.classList.add("accordion-underline");
+
+        const bibliografiaTitleContainer = document.createElement("div");
+        bibliografiaTitleContainer.classList.add("accordion-title-container");
+        bibliografiaTitleContainer.appendChild(bibliografiaTitle);
+        bibliografiaTitleContainer.appendChild(bibliografiaArrow);
+
+        const bibliografiaContent = document.createElement("div");
+        bibliografiaContent.classList.add("accordion-content");
+        bibliografiaContent.style.display = "none";
+        bibliografiaContent.style.textAlign = "justify";
+        function formatDate(dateString) {
+          const date = new Date(dateString);
+          const options = { year: "numeric", month: "long", day: "numeric" };
+          return date.toLocaleDateString("it-IT", options);
+        }
+
+        let bibliografiaHTML = `<p class="bibliografiaInfo">`;
+
+        if (item.bibliografia) {
+          bibliografiaHTML += `${item.bibliografia}<br>`;
+        }
+
+        bibliografiaHTML += `</p>`;
+
+        bibliografiaContent.innerHTML = bibliografiaHTML;
+
+        bibliografiaTitle.onclick = function () {
+          const isOpen = bibliografiaContent.style.display === "block";
+          bibliografiaContent.style.display = isOpen ? "none" : "block";
+          bibliografiaArrow.textContent = isOpen ? "▼" : "▲";
+        };
+
+        bibliografiaAccordion.appendChild(bibliografiaTitleContainer);
+        bibliografiaAccordion.appendChild(bibliografiaUnderline);
+        bibliografiaAccordion.appendChild(bibliografiaContent);
+
+        descriptionContainer.appendChild(bibliografiaAccordion);
+      }
+    });
+  </script>
+</body>
+
+</html>

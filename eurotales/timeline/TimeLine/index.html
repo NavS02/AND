@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Timeline</title>
+
+    <link
+      title="timeline-styles"
+      rel="stylesheet"
+      href="https://eurotales.eu/wp-content/themes/emaurri/timeline/TimeLine/timeline3/css/timeline.css"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!--JQUERY
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>-->
+    <script
+      src="https://eurotales.eu/wp-content/themes/emaurri/timeline/TimeLine/JS_Libraries/jquery.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <script src="https://eurotales.eu/wp-content/themes/emaurri/timeline/TimeLine/colors.js"></script>
+    <script src="https://eurotales.eu/wp-content/themes/emaurri/timeline/TimeLine/timeline3/js/timeline-min.js"></script>
+    <script src="https://eurotales.eu/wp-content/themes/emaurri/timeline/TimeLine/MyIta.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://eurotales.eu/wp-content/themes/emaurri/timeline/TimeLine/style.css"
+    />
+  </head>
+  <body onclick="PreventReset()" onload="SetUpTimeLine()">
+    <div id="timeline-container"></div>
+
+    <!--Credits-->
+
+    <div
+      onclick="BackFromCreditsFullScreen()"
+      id="BackBtn_FromCreditsFull"
+      class="hiddenButton"
+    ></div>
+
+    <img
+      src="https://eurotales.eu/wp-content/uploads/timeline/CreditsFullScreen.png"
+      id="PopupCreditsFull"
+    />
+
+    <!--HideHomeBtns-->
+    <div id="DivBtnZoomIn" onclick="ZoomIn()" class="HiddenBtn"></div>
+    <div id="DivBtnZoomOut" onclick="ZoomOut()" class="HiddenBtn"></div>
+    <div id="DivBtnFilter" onclick="GetPopUpFilters()" class="HiddenBtn"></div>
+    <!-- <div id="DivBtnCredits" onclick="GetPopUpCredits()" class="HiddenBtn"></div> -->
+
+    <!--PopUp Filters-->
+    <div id="PopUpFilterContainer" style="margin-top: 1.5%">
+      <div id="FirstColumn" class="ColumnFilterContainer">
+        <div class="ColumnFilter"></div>
+      </div>
+      <div id="ThirdColumn" class="ColumnFilterContainer"></div>
+      <div id="SecondColumn" class="ColumnFilterContainer"></div>
+      <div id="FourthColumn" class="ColumnFilterContainer"></div>
+    </div>
+    <img
+      id="FilterPopUpBackground"
+      src="https://eurotales.eu/wp-content/uploads/timeline/backstatic/TimeLineFilterPopup.png"
+    />
+
+    <div onclick="BackFromPopUpFilter()" id="BackFromFilterBtn">
+      <img
+        class="BackBtnImg"
+        src="https://eurotales.eu/wp-content/uploads/timeline/backstatic/circle-xmark-regular.svg"
+      />
+    </div>
+
+    <!--PopupInfos-->
+    <img id="CurrentImage" />
+    <div id="didascaliaImmagine">Didascalia immagine</div>
+    <div id="InfoContainerPopUp">
+      <div id="InfoTextContainer">
+        <div id="HeadLineContainer">
+          <p id="Headline">Headline</p>
+          <p id="Subtitle">Subtitle</p>
+        </div>
+        <div id="InfosContainer">
+          <div id="LinguaInfo">
+            <div id="ColorLanguage"></div>
+            <div id="LinguaLabelInfo">
+              <p>Lingua</p>
+              <p id="LinguaLabelCurrent">ITALIANO</p>
+            </div>
+          </div>
+          <div id="CategoriaInfo">
+            <img id="CategoriaIcon" />
+            <div id="CategoriaLabelInfo">
+              <p>Categoria</p>
+              <p id="CategoriaLabelCurrent">Manoscritto</p>
+            </div>
+          </div>
+          <div id="LuogoInfo">
+            <img id="LuogoIcon" src="https://eurotales.eu/wp-content/uploads/timeline/Pin.png" />
+            <div id="LuogoLabelInfo">
+              <p>Luogo</p>
+              <p id="LuogoLabelCurrent">Asturie</p>
+            </div>
+          </div>
+        </div>
+        <div id="DescriptionContainer">
+          LoremIpsum descrizione dell'evento. <br />
+          Ciaoo
+        </div>
+      </div>
+    </div>
+    <div onclick="BackFromInfoPopUp()" id="BackBtnFromInfoPopUp">
+      <img
+        class="BackBtnImg"
+        src="https://eurotales.eu/wp-content/uploads/timeline/backstatic/BackBtnFromPopup.png"
+      />
+    </div>
+    <div id="InfoPopUpBackground"></div>
+    <div class="headerPanel">
+      <a href="https://eurotales.eu">
+        <img
+          src="https://eurotales.eu/wp-content/uploads/2021/05/Logo-eurotales-ROSSO-DEFINITIVO.png"
+          alt=""
+          srcset=""
+          class="imageHeader"
+        />
+      </a>
+      <img
+        class="TitleLeft"
+        src="https://eurotales.eu/wp-content/uploads/timeline/backstatic/TitleTimeLine.png"
+      />
+    </div>
+    
+    <!-- <div class="footerContainer">
+      <img
+        src="/wp-content/uploads/2021/05/Logo-eurotales-ROSSO-DEFINITIVO.png"
+        alt=""
+        srcset=""
+        class="imageFooter"
+      />
+      <div class="textFooter">
+        <div class="footerLine">
+          TELEFONO: +39 0688378130<br /> 
+        </div>
+        <div class="footerLine">
+            INDIRIZZO: CIRCONVALLAZIONE TIBURTINA, 4 <br />
+            00185 ROMA, ITALIA
+        </div>
+        <div class="footerLine">
+            EMAIL: INFO@EUROTALES.EU</div>
+      </div>
+    </div> -->
+
+    <div id="LoadingScreen">
+      <img id="RotatingLoader" src="https://eurotales.eu/wp-content/uploads/timeline/loader.png" />
+    </div>
+    <div class="selectedColors" id="selectedColors"></div>
+    <div class="selectCategoria1" id="selectCategoriaColumn1"></div>
+    <div class="selectCategoria2" id="selectCategoriaColumn2"></div>
+    <div class="titleCategoriaFilter">Seleziona categoria</div>
+    <!--StaticImages-->
+    <img
+      class="FilterCentralBtn"
+      src="https://eurotales.eu/wp-content/uploads/timeline/backstatic/FiltraLingue.png"
+    />
+    <img class="ZoomerBtns" src="https://eurotales.eu/wp-content/uploads/timeline/backstatic/Zoomers.png">
+    <img
+      class="UpperCenterInstruction"
+      src="https://eurotales.eu/wp-content/uploads/timeline/backstatic/UpperInstructionTimeLine.png"
+    />
+    <img
+      class="backgroundTouch"
+      src="https://eurotales.eu/wp-content/uploads/timeline/backstatic/TimeLineBackground.png"
+    />
+    <!-- <img class="BtnCredits" src="/wp-content/uploads/timeline/backstatic/Credits.png">    -->
+
+    <script src="https://eurotales.eu/wp-content/themes/emaurri/timeline/TimeLine/logic.js"></script>
+  </body>
+</html>
