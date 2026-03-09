@@ -1,0 +1,122 @@
+{
+  "72a661fc-fa7a-4a0e-b95a-1b3cb7a2b1fc": {
+    "label": "Administrator",
+    "permission": {
+      "inventario": {
+        "read": true,
+        "edit": true,
+        "create": true,
+        "delete": true
+      },
+      "oa": {
+        "read": true,
+        "edit": true,
+        "create": true,
+        "delete": true
+      },
+      "fotografico": {
+        "read": true,
+        "edit": true,
+        "create": true,
+        "delete": true
+      },
+
+      "biblioteca": {
+        "read": true,
+        "edit": true,
+        "create": true,
+        "delete": true
+      }
+    }
+  },
+  "c6800d2d-3eaa-4c83-b766-ab62bc6bbb65": {
+    "label": "Catalogatore Arte",
+    "permission": {
+      "inventario": {
+        "read": true,
+        "edit": true,
+        "create": true,
+        "delete": true
+      },
+      "oa": {
+        "read": true,
+        "edit": true,
+        "create": true,
+        "delete": true
+      },
+      "fotografico": {
+        "read": true,
+        "edit": false,
+        "create": false,
+        "delete": false
+      },
+
+      "biblioteca": {
+        "read": true,
+        "edit": false,
+        "create": false,
+        "delete": false
+      }
+    }
+  },
+  "b8b50373-79ed-4a23-936c-4249757bb0ba": {
+    "label": "Catalogatore Foto Biblio",
+    "permission": {
+      "inventario": {
+        "read": true,
+        "edit": false,
+        "create": false,
+        "delete": false
+      },
+      "oa": {
+        "read": true,
+        "edit": false,
+        "create": false,
+        "delete": false
+      },
+      "fotografico": {
+        "read": true,
+        "edit": true,
+        "create": true,
+        "delete": true
+      },
+
+      "biblioteca": {
+        "read": true,
+        "edit": true,
+        "create": true,
+        "delete": true
+      }
+    }
+  },
+  "2fc86a5f-0854-4eeb-adb2-583ce474a1dc": {
+    "label": "Ricercatore",
+    "permission": {
+      "inventario": {
+        "read": true,
+        "edit": false,
+        "create": false,
+        "delete": false
+      },
+      "oa": {
+        "read": true,
+        "edit": false,
+        "create": false,
+        "delete": false
+      },
+      "fotografico": {
+        "read": true,
+        "edit": false,
+        "create": false,
+        "delete": false
+      },
+
+      "biblioteca": {
+        "read": true,
+        "edit": false,
+        "create": false,
+        "delete": false
+      }
+    }
+  }
+}
