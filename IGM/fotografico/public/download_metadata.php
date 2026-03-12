@@ -1,16 +1,15 @@
 <?php
 
-// ejecutar el script python
-shell_exec("python3 metadata.py");
+$image = $_GET['file'];
 
-// archivo generado
-$file = "hola.txt";
+$url = "http://195.231.23.205/fotografico/images/preview/0001/" . $image;
 
-// headers para forzar descarga
-header('Content-Type: text/plain');
-header('Content-Disposition: attachment; filename="hola.txt"');
-header('Content-Length: ' . filesize($file));
+$xml = shell_exec("python3 metadata.py " . escapeshellarg($url));
 
-// enviar archivo
-readfile($file);
+$xml_filename = pathinfo($image, PATHINFO_FILENAME) . ".xml";
+
+header('Content-Type: application/xml');
+header('Content-Disposition: attachment; filename="' . $xml_filename . '"');
+
+echo $xml;
 exit;

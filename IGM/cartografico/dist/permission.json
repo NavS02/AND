@@ -1,0 +1,138 @@
+{
+  "4ef759dc-db69-4b6e-80af-bf9ead9f462b": {
+    "label": "Administrator",
+    "permission": {
+      "fotografico": {
+        "read": true,
+        "edit": true,
+        "create": true,
+        "delete": true
+      },
+      "cartografico": {
+        "read": true,
+        "edit": true,
+        "create": true,
+        "delete": true
+      }
+    }
+  },
+  "c2f5d612-e71b-4149-ab0d-9f94ac668835": {
+    "label": "Admin Fotografico",
+    "permission": {
+      "fotografico": {
+        "read": true,
+        "edit": true,
+        "create": true,
+        "delete": true
+      },
+      "cartografico": {
+        "read": false,
+        "edit": false,
+        "create": false,
+        "delete": false
+      }
+    }
+  },
+  "a80e77b4-1906-44a2-8a57-e5a2fc073b2f": {
+    "label": "Admin Cartografico",
+    "permission": {
+      "fotografico": {
+        "read": false,
+        "edit": false,
+        "create": false,
+        "delete": false
+      },
+      "cartografico": {
+        "read": true,
+        "edit": true,
+        "create": true,
+        "delete": true
+      }
+    }
+  },
+  "a7c96239-e83a-4c7b-b465-d44c80e9ff4c": {
+    "label": "Cartografico",
+    "permission": {
+      "fotografico": {
+        "read": false,
+        "edit": false,
+        "create": false,
+        "delete": false
+      },
+      "cartografico": {
+        "read": true,
+        "edit": true,
+        "create": true,
+        "delete": true
+      }
+    }
+  },
+  "2c0daa81-0411-43e5-b77b-6a05a94c6298": {
+    "label": "Cartografico Viewer",
+    "permission": {
+      "fotografico": {
+        "read": false,
+        "edit": false,
+        "create": false,
+        "delete": false
+      },
+      "cartografico": {
+        "read": true,
+        "edit": false,
+        "create": false,
+        "delete": false
+      }
+    }
+  },
+  "68f3ac22-1131-4eb4-bdeb-35a689e955a6": {
+    "label": "Fotografico",
+    "permission": {
+      "fotografico": {
+        "read": true,
+        "edit": true,
+        "create": true,
+        "delete": true
+      },
+      "cartografico": {
+        "read": false,
+        "edit": false,
+        "create": false,
+        "delete": false
+      }
+    }
+  },
+  "79fe08ee-9a78-4966-b2ab-1b2ae9a8878d": {
+    "label": "Fotografico Viewer",
+    "permission": {
+      "fotografico": {
+        "read": true,
+        "edit": false,
+        "create": false,
+        "delete": false
+      },
+      "cartografico": {
+        "read": false,
+        "edit": false,
+        "create": false,
+        "delete": false
+      }
+    }
+  },
+  "7929cfba-c864-483f-8535-141911aaca0c": {
+    "label": "Viewer",
+    "permission": {
+      "fotografico": {
+        "read": true,
+        "edit": false,
+        "create": false,
+        "delete": false
+      },
+      "cartografico": {
+        "read": true,
+        "edit": false,
+        "create": false,
+        "delete": false
+      }
+    }
+  }
+}

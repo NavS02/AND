@@ -9,18 +9,16 @@
 
   <div class="border rounded p-2 d-flex align-items-center gap-2" :id="`field-${field.name}`">
     
-    <!-- Descargar XML -->
     <button class="btn btn-sm btn-primary" @click="onDownloadClicked">
       Download
     </button>
 
-    <!-- Abrir drawer -->
     <button
       class="btn btn-sm btn-warning"
       @click="onEditClicked"
       v-if="field.edit !== 'false'"
     >
-      Modifica
+      Edit
     </button>
 
   </div>
@@ -60,7 +58,7 @@ function onDownloadClicked() {
   const fileName = imageField?.__value || ""
 
   if (!fileName) {
-    alert("No hay imagen seleccionada")
+    alert("No image")
     return
   }
 
