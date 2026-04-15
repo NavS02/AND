@@ -1,0 +1,24 @@
+{
+  "italiano": {
+    "storia": "STORIA",
+    "mappa": "MAPPA",
+    "lista_opere": "LISTA OPERE",
+    "informazione": "INFORMAZIONE",
+    "crediti": "CREDITI",
+    "torna_home": "TORNA ALL'INIZIO",
+    "visualizza_elenco": "Visualizza l'elenco",
+    "visualizza_mappa": "Visualizza la mappa",
+    "return_home": "Torna indietro"
+  },
+  "english": {
+    "storia": "HISTORY",
+    "mappa": "MAP",
+    "lista_opere": "LIST OF WORKS",
+    "informazione": "INFORMATION",
+    "crediti": "CREDITS",
+    "torna_home": "BACK TO START",
+    "visualizza_elenco": "View the list",
+    "visualizza_mappa": "View the map",
+    "return_home": "Go back"
+  }
+}
